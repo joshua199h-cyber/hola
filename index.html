@@ -1,1126 +1,406 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-<title>Feliz Cumpleaños, Jaque ✦</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartCane - 50 Preguntas Encuesta</title>
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --bg:#05050f;--fg:#f0ecff;
-  --acc:#8ab4d4;--lila:#b39ddb;--dur:0.9s;
-  --ease:cubic-bezier(0.76,0,0.24,1);
-  --pad: clamp(22px,6vw,120px);
-  --pad-top: clamp(56px,8vh,90px);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--fg);font-family:'Cormorant Garamond','Georgia',serif;cursor:default;transition:background 1s ease;-webkit-tap-highlight-color:transparent;}
-body.s1{background:#05050f;--acc:#8ab4d4;}
-body.s2{background:#060510;--acc:#b39ddb;}
-body.s3{background:#060a14;--acc:#7ec8e3;}
-body.s4{background:#08060f;--acc:#c3a8e8;}
-body.s5{background:#050810;--acc:#8ab4d4;}
-body.s6{background:#080510;--acc:#b39ddb;}
-body.s7{background:#0a0514;--acc:#e8a0d0;}
-body.s8{background:#080410;--acc:#c8a0d8;}
-body.s9{background:#05050f;--acc:#d4a8c3;}
-body.s10{background:#05050f;--acc:#8ab4d4;}
 
-#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
-body::before{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:0.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px;}
-
-/* ══ ENVELOPE ══ */
-#env-screen{position:fixed;inset:0;z-index:5000;background:#05050f;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;transition:opacity 0.9s ease,transform 0.9s ease;}
-#env-screen.hidden{opacity:0;transform:scale(1.06);pointer-events:none;}
-.env-wrap{position:relative;width:min(230px,72vw);height:min(165px,52vw);margin-bottom:clamp(28px,5vh,52px);animation:envFloat 3.8s ease-in-out infinite;flex-shrink:0;}
-@keyframes envFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
-.env-body{position:absolute;inset:0;background:#0d0d1e;border:1px solid rgba(138,180,212,0.2);border-radius:4px;box-shadow:0 30px 90px rgba(138,180,212,0.08);}
-.env-flap{position:absolute;top:0;left:0;right:0;height:0;border-left:50% solid transparent;border-right:50% solid transparent;border-top:min(82px,25vw) solid #12122a;transform-origin:top center;transition:transform 0.75s cubic-bezier(0.4,0,0.2,1);z-index:2;}
-.env-wrap:hover .env-flap,.env-wrap:active .env-flap{transform:rotateX(-175deg);}
-.env-fl{position:absolute;bottom:0;left:0;width:0;height:0;border-bottom:min(82px,25vw) solid #0a0a1c;border-right:50% solid transparent;}
-.env-fr{position:absolute;bottom:0;right:0;width:0;height:0;border-bottom:min(82px,25vw) solid #0a0a1c;border-left:50% solid transparent;}
-.env-letter{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);width:65%;height:60%;background:#0d0d22;border:1px solid rgba(179,157,219,0.2);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:clamp(20px,5vw,30px);z-index:1;transition:bottom 0.75s cubic-bezier(0.4,0,0.2,1),transform 0.75s cubic-bezier(0.4,0,0.2,1);}
-.env-wrap:hover .env-letter,.env-wrap:active .env-letter{bottom:55px;transform:translateX(-50%) translateY(-22px);}
-.env-seal{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;background:var(--lila);display:flex;align-items:center;justify-content:center;font-size:18px;z-index:3;box-shadow:0 0 28px rgba(179,157,219,0.45);animation:sealPulse 2.2s ease-in-out infinite;}
-@keyframes sealPulse{0%,100%{box-shadow:0 0 20px rgba(179,157,219,0.35);}50%{box-shadow:0 0 50px rgba(179,157,219,0.7);}}
-.env-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5.5vw,42px);font-style:italic;font-weight:300;color:var(--lila);margin-bottom:6px;text-align:center;}
-.env-sub{font-family:'DM Mono',monospace;font-size:clamp(9px,2.2vw,11px);letter-spacing:0.28em;text-transform:uppercase;color:rgba(240,236,255,0.5);margin-bottom:clamp(28px,5vh,52px);text-align:center;}
-#open-btn{font-family:'DM Mono',monospace;font-size:clamp(11px,3vw,13px);letter-spacing:0.22em;text-transform:uppercase;color:#05050f;background:var(--lila);border:none;padding:clamp(14px,3.5vw,16px) clamp(28px,8vw,44px);cursor:pointer;transition:background 0.25s,transform 0.25s;position:relative;overflow:hidden;touch-action:manipulation;}
-#open-btn:hover,#open-btn:active{background:#c8b8f0;}
-
-/* ══ PHOTO REVEAL ══ */
-#photo-reveal{position:fixed;inset:0;z-index:6000;background:rgba(3,3,15,0.97);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity 0.6s ease;}
-#photo-reveal.show{opacity:1;pointer-events:all;}
-#photo-reveal.fade-out{opacity:0;pointer-events:none;}
-.pr-img-wrap{position:relative;border:1px solid rgba(179,157,219,0.3);box-shadow:0 0 80px rgba(179,157,219,0.2);border-radius:6px;overflow:hidden;width:min(360px,88vw);animation:prFloat 3.5s ease-in-out infinite;flex-shrink:0;}
-@keyframes prFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
-.pr-img-wrap img{display:block;width:100%;height:auto;max-height:52vh;object-fit:cover;}
-.pr-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5vw,34px);font-style:italic;font-weight:300;color:var(--lila);margin-bottom:6px;text-align:center;margin-top:clamp(18px,3vh,28px);}
-.pr-sub{font-family:'DM Mono',monospace;font-size:clamp(9px,2vw,10px);letter-spacing:0.28em;color:rgba(240,236,255,0.45);text-transform:uppercase;margin-bottom:clamp(18px,3vh,28px);text-align:center;}
-#pr-skip{font-family:'DM Mono',monospace;font-size:clamp(11px,3vw,13px);letter-spacing:0.2em;text-transform:uppercase;color:#05050f;background:var(--lila);border:none;padding:clamp(12px,3vw,14px) clamp(26px,7vw,38px);cursor:pointer;transition:background 0.25s;touch-action:manipulation;}
-#pr-skip:hover,#pr-skip:active{background:#c8b8f0;}
-
-/* ══ STAGE ══ */
-#stage{perspective:1400px;width:100vw;height:100vh;position:relative;overflow:hidden;}
-.slide{position:absolute;inset:0;width:100vw;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:var(--pad);padding-top:var(--pad-top);backface-visibility:hidden;transform-origin:center;transform-style:preserve-3d;will-change:transform,opacity;opacity:0;pointer-events:none;transform:rotateX(90deg) translateZ(60px);transition:transform var(--dur) var(--ease),opacity calc(var(--dur)*0.6) var(--ease);z-index:1;overflow:hidden;}
-.slide.is-active{opacity:1;pointer-events:all;transform:rotateX(0deg) translateZ(0);}
-.slide.exit-up{opacity:0;transform:rotateX(-90deg) translateZ(60px);transition:transform var(--dur) var(--ease),opacity calc(var(--dur)*0.5) var(--ease);}
-.slide.exit-down{opacity:0;transform:rotateX(90deg) translateZ(60px);transition:transform var(--dur) var(--ease),opacity calc(var(--dur)*0.5) var(--ease);}
-.slide:not(.is-active):not(.exit-up):not(.exit-down){visibility:hidden;}
-.slide.is-active,.slide.exit-up,.slide.exit-down{visibility:visible;}
-
-/* ══ UI CONTROLS ══ */
-#counter{position:fixed;bottom:clamp(18px,3vh,40px);right:clamp(16px,4vw,56px);z-index:1000;font-family:'DM Mono',monospace;font-size:clamp(10px,2.5vw,11px);letter-spacing:0.18em;color:rgba(240,236,255,0.6);}
-#counter span{color:var(--fg);}
-#nav-arrows{position:fixed;right:clamp(16px,3vw,52px);top:50%;transform:translateY(-50%);z-index:1000;display:flex;flex-direction:column;gap:10px;}
-.nav-btn{width:34px;height:34px;border:1px solid rgba(240,236,255,0.2);background:transparent;color:rgba(240,236,255,0.5);cursor:pointer;border-radius:2px;display:flex;align-items:center;justify-content:center;transition:border-color 0.2s,color 0.2s;}
-.nav-btn:hover{border-color:var(--acc);color:var(--acc);}
-.nav-btn svg{width:13px;height:13px;}
-
-/* ══ MOBILE SWIPE INDICATORS ══ */
-#swipe-hint{position:fixed;bottom:clamp(18px,3vh,40px);left:50%;transform:translateX(-50%);z-index:1000;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;color:rgba(240,236,255,0.35);text-transform:uppercase;display:none;align-items:center;gap:8px;white-space:nowrap;}
-#swipe-hint .sh-arrow{font-size:13px;animation:swipeBounce 1.8s ease-in-out infinite;}
-@keyframes swipeBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
-
-/* ══ MUSIC ══ */
-#music-bar{position:fixed;bottom:clamp(18px,3vh,26px);left:clamp(14px,4vw,28px);z-index:1000;display:flex;align-items:center;gap:10px;}
-#music-btn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(240,236,255,0.25);background:rgba(5,5,15,0.65);color:var(--fg);cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);transition:border-color 0.2s,transform 0.2s;touch-action:manipulation;flex-shrink:0;}
-#music-btn:hover,#music-btn:active{border-color:var(--acc);transform:scale(1.1);}
-#music-btn svg{width:12px;height:12px;}
-#music-btn .icon-play{display:none;}
-#music-btn.paused .icon-pause{display:none;}
-#music-btn.paused .icon-play{display:block;}
-#music-label{font-family:'DM Mono',monospace;font-size:clamp(8px,2vw,10px);letter-spacing:0.15em;color:rgba(240,236,255,0.5);text-transform:uppercase;white-space:nowrap;}
-#music-viz{display:flex;align-items:flex-end;gap:2px;height:12px;flex-shrink:0;}
-#music-viz span{display:block;width:3px;border-radius:2px;background:var(--acc);animation:vizBar 0.85s ease-in-out infinite;}
-#music-viz span:nth-child(1){height:5px;animation-delay:0s;}
-#music-viz span:nth-child(2){height:11px;animation-delay:0.15s;}
-#music-viz span:nth-child(3){height:7px;animation-delay:0.3s;}
-#music-viz span:nth-child(4){height:13px;animation-delay:0.1s;}
-#music-viz.paused span{animation-play-state:paused;}
-@keyframes vizBar{0%,100%{transform:scaleY(0.35);}50%{transform:scaleY(1);}}
-
-/* ══ TYPOGRAPHY ══ */
-.slide-tag{font-family:'DM Mono',monospace;font-size:clamp(9px,2.2vw,12px);letter-spacing:0.28em;text-transform:uppercase;color:var(--acc);margin-bottom:clamp(10px,2vh,26px);font-weight:400;flex-shrink:0;}
-.slide-hl{font-size:clamp(38px,8.5vw,130px);line-height:0.93;font-weight:300;letter-spacing:-0.03em;margin-bottom:clamp(14px,2.5vh,38px);font-style:italic;color:#ffffff;flex-shrink:0;}
-.slide-hl em{font-style:normal;color:var(--acc);}
-.slide-body{font-family:'Cormorant Garamond',serif;font-size:clamp(15px,1.6vw,19px);line-height:1.8;color:rgba(240,236,255,0.88);max-width:480px;margin-bottom:clamp(16px,2.5vh,36px);font-weight:400;flex-shrink:0;}
-.deco-num{position:absolute;right:clamp(20px,5vw,90px);top:50%;transform:translateY(-55%);font-size:clamp(120px,22vw,340px);font-style:italic;color:rgba(240,236,255,0.022);line-height:1;pointer-events:none;user-select:none;letter-spacing:-0.05em;}
-.scroll-hint{position:absolute;bottom:clamp(20px,4vh,50px);left:var(--pad);display:flex;align-items:center;gap:12px;font-family:'DM Mono',monospace;font-size:clamp(9px,2vw,10px);letter-spacing:0.25em;color:rgba(240,236,255,0.5);text-transform:uppercase;}
-.scroll-hint .ln{width:32px;height:1px;background:rgba(240,236,255,0.4);animation:lnPulse 2.2s ease-in-out infinite;}
-@keyframes lnPulse{0%,100%{opacity:0.4;}50%{opacity:1;transform:scaleX(1.3);transform-origin:left;}}
-
-/* ══ IMG STRIP — DESKTOP ══ */
-.img-strip{position:absolute;right:0;bottom:0;width:54vw;height:100vh;display:flex;align-items:flex-end;overflow:hidden;pointer-events:all;}
-.img-strip::before{content:'';position:absolute;left:0;top:0;width:35%;height:100%;background:linear-gradient(to right,var(--bg) 0%,transparent 100%);z-index:2;pointer-events:none;}
-.img-thumb{position:relative;flex:0 0 auto;height:100%;overflow:hidden;cursor:zoom-in;}
-.img-thumb:nth-child(1){width:40%;}
-.img-thumb:nth-child(2){width:32%;}
-.img-thumb:nth-child(3){width:28%;}
-.img-thumb img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.72) saturate(0.8);transition:transform 0.55s var(--ease),filter 0.4s ease;}
-.img-thumb:hover img{transform:scale(1.06);filter:brightness(0.9) saturate(1.05);}
-.img-thumb .cap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.8));padding:20px 10px 10px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:#fff;opacity:0;transform:translateY(8px);transition:opacity 0.3s,transform 0.3s;pointer-events:none;}
-.img-thumb:hover .cap{opacity:1;transform:translateY(0);}
-
-/* ══ MOBILE PHOTO GRID ══ */
-.mobile-photos{display:none;width:100%;gap:6px;margin-top:auto;padding-top:12px;flex-shrink:0;}
-.mobile-photos .mp-img{flex:1;border-radius:8px;overflow:hidden;cursor:zoom-in;position:relative;aspect-ratio:3/4;}
-.mobile-photos .mp-img img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.78) saturate(0.85);}
-.mobile-photos .mp-img .cap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.7));padding:14px 8px 6px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;color:#fff;opacity:0;transition:opacity 0.25s;pointer-events:none;}
-.mobile-photos .mp-img:active .cap{opacity:1;}
-
-/* ══ GALLERY ══ */
-.gallery-label{position:absolute;top:clamp(14px,3vh,42px);left:clamp(14px,4vw,52px);z-index:10;font-family:'DM Mono',monospace;font-size:clamp(9px,2vw,11px);letter-spacing:0.28em;color:var(--acc);text-transform:uppercase;pointer-events:none;}
-.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:3px;width:100%;height:100%;position:absolute;inset:0;}
-.g-cell{overflow:hidden;cursor:zoom-in;position:relative;}
-.g-cell img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.7) saturate(0.8);transition:transform 0.55s var(--ease),filter 0.4s ease;}
-.g-cell:hover img,.g-cell:active img{transform:scale(1.07);filter:brightness(0.9) saturate(1.1);}
-.g-cell .cap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.75));padding:18px 10px 8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;color:#fff;opacity:0;transform:translateY(6px);transition:opacity 0.3s,transform 0.3s;pointer-events:none;}
-.g-cell:hover .cap,.g-cell:active .cap{opacity:1;transform:translateY(0);}
-
-/* ══ QUOTE ══ */
-.quote-blk{border-left:2px solid var(--acc);padding:12px 18px;margin:clamp(8px,1.5vh,16px) 0;background:rgba(138,180,212,0.08);border-radius:0 6px 6px 0;max-width:min(460px,100%);}
-.quote-blk p{font-size:clamp(14px,1.5vw,17px);font-style:italic;color:rgba(240,236,255,0.9);line-height:1.7;font-weight:300;}
-.quote-blk .qau{font-family:'DM Mono',monospace;font-size:clamp(9px,2vw,10px);letter-spacing:0.2em;color:rgba(138,180,212,0.7);margin-top:6px;font-style:normal;}
-
-/* ══ DAYS TAG ══ */
-.days-tag{display:inline-block;background:rgba(138,180,212,0.12);border:1px solid rgba(138,180,212,0.4);color:var(--acc);font-family:'DM Mono',monospace;font-size:clamp(9px,2.2vw,11px);letter-spacing:0.22em;padding:5px 14px;border-radius:20px;text-transform:uppercase;margin-bottom:clamp(10px,2vh,18px);}
-
-/* ══ RAZONES ══ */
-#slide-reasons{overflow:hidden;}
-.reasons-title{font-family:'Cormorant Garamond',serif;font-size:clamp(12px,1.5vw,15px);letter-spacing:0.25em;text-transform:uppercase;color:var(--acc);margin-bottom:clamp(12px,2vh,20px);font-weight:300;}
-.reasons-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(8px,1.5vw,12px);max-width:720px;width:100%;}
-.reason-card{background:rgba(179,157,219,0.06);border:1px solid rgba(179,157,219,0.18);border-radius:10px;padding:clamp(12px,1.8vw,16px) clamp(12px,1.8vw,18px);cursor:pointer;transition:all 0.35s ease;position:relative;overflow:hidden;touch-action:manipulation;}
-.reason-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(179,157,219,0.15) 0%,transparent 70%);opacity:0;transition:opacity 0.35s ease;}
-.reason-card:hover::before,.reason-card.revealed::before{opacity:1;}
-.reason-card.revealed{background:rgba(179,157,219,0.14);border-color:rgba(179,157,219,0.5);transform:scale(1.02);}
-.rc-num{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.25em;color:var(--lila);margin-bottom:6px;opacity:0.8;}
-.rc-front{font-family:'Cormorant Garamond',serif;font-size:clamp(13px,1.4vw,16px);font-style:italic;color:rgba(240,236,255,0.55);}
-.rc-back{font-family:'Cormorant Garamond',serif;font-size:clamp(12px,1.3vw,15px);color:rgba(240,236,255,0.95);line-height:1.55;display:none;font-weight:400;}
-.reason-card.revealed .rc-front{display:none;}
-.reason-card.revealed .rc-back{display:block;}
-.reasons-hint{font-family:'DM Mono',monospace;font-size:clamp(9px,2vw,10px);letter-spacing:0.2em;color:rgba(240,236,255,0.4);margin-top:clamp(10px,1.5vh,14px);text-transform:uppercase;}
-
-/* ══ FINAL BTN ══ */
-.btn-final{display:inline-flex;align-items:center;gap:12px;font-family:'DM Mono',monospace;font-size:clamp(11px,2.5vw,15px);letter-spacing:0.14em;text-transform:uppercase;color:#05050f;background:var(--lila);border:none;padding:clamp(14px,3vw,18px) clamp(22px,5vw,38px);cursor:pointer;text-decoration:none;transition:background 0.25s,transform 0.25s,box-shadow 0.25s;position:relative;overflow:hidden;touch-action:manipulation;}
-.btn-final:hover,.btn-final:active{background:#c8b8f0;transform:translateX(4px);box-shadow:-4px 0 0 0 var(--acc);}
-
-/* ══ SLIDE 1 — INTRO ══ */
-#s-intro{justify-content:center;align-items:center;padding:0;text-align:center;overflow:hidden;}
-#s-intro .intro-bg{position:absolute;inset:0;z-index:0;}
-#s-intro .intro-bg img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:brightness(0.28) saturate(0.65) hue-rotate(210deg);}
-#s-intro .intro-overlay{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at 50% 0%,rgba(20,10,60,0.5) 0%,transparent 65%),radial-gradient(ellipse at 50% 100%,rgba(5,5,20,0.92) 0%,transparent 60%),linear-gradient(to bottom,rgba(5,5,15,0.3) 0%,rgba(5,5,15,0.1) 40%,rgba(5,5,15,0.85) 85%,rgba(5,5,15,1) 100%);}
-#s-intro .coraline-dust{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden;}
-#s-intro .coraline-dust span{position:absolute;border-radius:50%;background:var(--acc);opacity:0;animation:dustFloat linear infinite;}
-@keyframes dustFloat{0%{transform:translateY(100vh) scale(0);opacity:0;}10%{opacity:0.7;}90%{opacity:0.5;}100%{transform:translateY(-10vh) scale(1.5);opacity:0;}}
-#s-intro .eye-deco{position:absolute;z-index:3;pointer-events:none;opacity:0.18;}
-#s-intro .eye-deco.eye-left{left:clamp(10px,4vw,60px);top:clamp(12px,6vh,80px);width:clamp(28px,5vw,52px);}
-#s-intro .eye-deco.eye-right{right:clamp(10px,4vw,60px);top:clamp(12px,6vh,80px);width:clamp(28px,5vw,52px);}
-#s-intro .eye-deco.eye-bottom-l{left:clamp(10px,5vw,80px);bottom:clamp(70px,12vh,120px);width:clamp(18px,3vw,32px);opacity:0.10;}
-#s-intro .eye-deco.eye-bottom-r{right:clamp(10px,5vw,80px);bottom:clamp(70px,12vh,120px);width:clamp(18px,3vw,32px);opacity:0.10;}
-#s-intro .coraline-frame{position:absolute;inset:clamp(12px,3vw,40px);z-index:3;border:1px solid rgba(138,180,212,0.15);pointer-events:none;border-radius:2px;}
-#s-intro .coraline-frame::before,#s-intro .coraline-frame::after{content:'✦';position:absolute;font-size:clamp(10px,2vw,14px);color:rgba(138,180,212,0.4);animation:cornerPulse 3s ease-in-out infinite;}
-#s-intro .coraline-frame::before{top:-8px;left:-8px;}
-#s-intro .coraline-frame::after{bottom:-8px;right:-8px;animation-delay:1.5s;}
-@keyframes cornerPulse{0%,100%{opacity:0.4;}50%{opacity:1;}}
-#s-intro .intro-tag{position:relative;z-index:10;font-family:'DM Mono',monospace;font-size:clamp(8px,2.2vw,11px);letter-spacing:0.32em;text-transform:uppercase;color:var(--acc);margin-bottom:clamp(10px,2.5vh,20px);opacity:0.85;}
-#s-intro .intro-title{position:relative;z-index:10;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;line-height:0.90;letter-spacing:-0.03em;color:#ffffff;text-align:center;font-size:clamp(72px,14vw,200px);margin-bottom:clamp(8px,2vh,20px);text-shadow:0 4px 60px rgba(138,180,212,0.25);}
-#s-intro .intro-title em{font-style:normal;color:var(--acc);display:block;font-size:0.95em;}
-#s-intro .intro-sub{position:relative;z-index:10;font-family:'DM Mono',monospace;font-size:clamp(9px,2vw,12px);letter-spacing:0.30em;text-transform:uppercase;color:rgba(240,236,255,0.45);margin-bottom:clamp(14px,3vh,28px);}
-#s-intro .intro-scroll{position:absolute;bottom:clamp(22px,5vh,52px);left:50%;transform:translateX(-50%);z-index:10;display:flex;align-items:center;gap:12px;font-family:'DM Mono',monospace;font-size:clamp(8px,1.8vw,10px);letter-spacing:0.25em;color:rgba(240,236,255,0.45);text-transform:uppercase;white-space:nowrap;}
-#s-intro .intro-scroll .ln{width:28px;height:1px;background:rgba(240,236,255,0.35);animation:lnPulse 2.2s ease-in-out infinite;}
-#s-intro .intro-content{position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;padding:0 clamp(16px,5vw,60px);}
-
-/* ══ MOBILE OVERRIDES ══ */
-@media(max-width:768px){
-  #s-intro .intro-title{font-size:clamp(58px,17vw,90px) !important;line-height:0.92;}
-  :root{--pad:20px;--pad-top:52px;}
-  .slide{padding:24px 20px 92px;padding-top:calc(46px + env(safe-area-inset-top));overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;align-items:stretch;justify-content:flex-start;}
-  .slide-tag{font-size:9px;letter-spacing:0.26em;margin-bottom:12px;}
-  .slide-hl{font-size:clamp(36px,12vw,58px) !important;line-height:0.94;margin-bottom:14px;}
-  .slide-body{font-size:16px;line-height:1.68;margin-bottom:18px;max-width:100%;color:rgba(240,236,255,0.92);}
-  .img-strip{display:none !important;}
-  .mobile-photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:clamp(18px,5vh,36px);padding-top:0;}
-  .mobile-photos .mp-img{border-radius:10px;aspect-ratio:4/5;box-shadow:0 16px 40px rgba(0,0,0,0.28),0 0 0 1px rgba(240,236,255,0.08);}
-  .mobile-photos .mp-img img{filter:brightness(0.86) saturate(0.98);object-position:center;}
-  .mobile-photos .mp-img .cap{display:none !important;}
-  .img-thumb .cap,.g-cell .cap{display:none !important;}
-  .deco-num{display:none;}
-  #nav-arrows{display:none;}
-  #swipe-hint{display:flex;}
-  #counter{bottom:calc(18px + env(safe-area-inset-bottom));right:20px;}
-  #music-bar{bottom:calc(16px + env(safe-area-inset-bottom));left:20px;}
-  #music-label{display:none;}
-  #lb-cap{display:none;}
-  #lb-img{max-width:94vw;max-height:72vh;border-radius:10px;}
-  .gallery-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,minmax(160px,1fr));gap:4px;position:relative;height:100%;inset:0;}
-  .reasons-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
-  .reason-card{padding:12px 14px;}
-  .scroll-hint{bottom:18px;left:20px;}
-  .quote-blk{padding:10px 14px;margin:10px 0;}
-  .btn-final{width:100%;justify-content:center;max-width:100%;}
-  #stage .slide[data-s="8"]{padding:0;}
-  .gallery-label{top:12px;left:14px;font-size:9px;}
-  .slide[data-s="10"] .slide-body{font-size:14px;}
+:root {
+  --primary: #1a1a2e;
+  --secondary: #16213e;
+  --accent: #e94560;
+  --accent-light: #f39c12;
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --border: #2d3561;
+  --success: #2ecc71;
 }
-@media(max-width:400px){
-  .slide-hl{font-size:clamp(30px,9vw,46px) !important;}
-  #s-intro .intro-title{font-size:clamp(52px,15vw,72px) !important;}
-  .reasons-grid{grid-template-columns:1fr 1fr;gap:6px;}
-  .reason-card{padding:10px 11px;}
-  .rc-front,.rc-back{font-size:13px;}
+
+body {
+  background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  padding: 1rem;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 1.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  background: linear-gradient(135deg, #e94560, #f39c12);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.3rem;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.progress-section {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.progress-bar {
+  background: var(--border);
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: space-between;
+}
+
+.questions-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.question-card {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  transition: all 0.2s ease;
+}
+
+.question-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 15px rgba(233, 69, 96, 0.15);
+}
+
+.question-num {
+  display: inline-block;
+  background: var(--accent);
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 28px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.question-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  color: var(--text-primary);
+}
+
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+button {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-primary);
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  border-color: var(--accent);
+  background: rgba(233, 69, 96, 0.1);
+}
+
+button.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.summary {
+  background: var(--secondary);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.summary-title {
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+.summary-text {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
 }
 </style>
 </head>
-<body class="s1">
+<body>
+<div class="container">
+  <header>
+    <h1>SmartCane Validation</h1>
+    <p class="subtitle">50 Preguntas Cerradas - Análisis de Viabilidad</p>
+  </header>
 
-<canvas id="starfield"></canvas>
-
-<!-- PHOTO REVEAL -->
-<div id="photo-reveal">
-  <div class="pr-img-wrap">
-    <img src="assets/img/foto-reveal.jpeg" alt="Jaque ✦" />
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-number" id="answered">0</div>
+      <div class="stat-label">Respondidas</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="viability">0%</div>
+      <div class="stat-label">Viabilidad</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="positive">0</div>
+      <div class="stat-label">Positivas</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="negative">0</div>
+      <div class="stat-label">Negativas</div>
+    </div>
   </div>
-  <p class="pr-title">Para ti, Jaque 🖤</p>
-  <p class="pr-sub">Con todo el amor del mundo — Joshua</p>
-  <button id="pr-skip">Continuar →</button>
-</div>
 
-<!-- SOBRE -->
-<div id="env-screen">
-  <div class="env-wrap">
-    <div class="env-body">
-      <div class="env-fl"></div><div class="env-fr"></div>
-      <div class="env-letter">🖤</div>
+  <div class="progress-section">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width: 0%"></div>
     </div>
-    <div class="env-flap"></div>
-    <div class="env-seal">✦</div>
+    <div class="progress-text">
+      <span>Progreso</span>
+      <span id="progressText">0/50</span>
+    </div>
   </div>
-  <p class="env-title">Tienes una carta, Jaque</p>
-  <p class="env-sub">De Joshua — con todo su corazón</p>
-  <button id="open-btn">Abrir carta →</button>
-</div>
 
-<!-- LIGHTBOX -->
-<div id="lightbox" role="dialog" aria-modal="true">
-  <button id="lb-close">✕</button>
-  <button class="lb-arrow" id="lb-prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-  <img id="lb-img" src="" alt=""/>
-  <button class="lb-arrow" id="lb-next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
-  <div id="lb-cap"></div>
-</div>
+  <div class="questions-container" id="questionsContainer"></div>
 
-<style>
-#lightbox{position:fixed;inset:0;z-index:9000;background:rgba(3,3,15,0.96);display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;}
-#lightbox.open{display:flex;}
-#lb-close{position:absolute;top:18px;right:22px;background:transparent;border:1px solid rgba(240,236,255,0.25);color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
-#lb-img{max-width:min(90vw,900px);max-height:78vh;object-fit:contain;border-radius:4px;}
-#lb-cap{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.2em;color:rgba(240,236,255,0.5);text-transform:uppercase;}
-.lb-arrow{position:absolute;top:50%;background:transparent;border:1px solid rgba(240,236,255,0.2);color:#fff;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transform:translateY(-50%);}
-.lb-arrow svg{width:16px;height:16px;}
-#lb-prev{left:16px;}#lb-next{right:16px;}
-</style>
-
-<audio id="bgm" loop preload="none"></audio>
-
-<!-- MUSIC BAR -->
-<div id="music-bar">
-  <button id="music-btn" class="paused" title="Reproducir / Pausar">
-    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
-    <svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-  </button>
-  <div id="music-viz" class="paused"><span></span><span></span><span></span><span></span></div>
-  <span id="music-label">♪ Las Mañanitas — Cepillín</span>
-</div>
-
-<div id="counter"><span id="cnt-c">1</span> / <span id="cnt-t">10</span></div>
-<div id="nav-arrows">
-  <button class="nav-btn" id="btn-up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="18 15 12 9 6 15"></polyline></svg></button>
-  <button class="nav-btn" id="btn-dn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-</div>
-<div id="swipe-hint"><span class="sh-arrow">↑</span> desliza <span class="sh-arrow" style="animation-delay:0.3s">↓</span></div>
-
-<div id="stage">
-
-  <!-- ══ SLIDE 1 — INTRO ══ -->
-  <section class="slide" id="s-intro" data-s="1">
-    <div class="intro-bg"><img src="https://cdn.collider.com/wp-content/uploads/coraline-movie-image-01.jpg" alt="Coraline" /></div>
-    <div class="intro-overlay"></div>
-    <div class="coraline-dust" id="coraline-dust"></div>
-    <div class="coraline-frame"></div>
-    <svg class="eye-deco eye-left" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="26" fill="none" stroke="#8ab4d4" stroke-width="2"/><circle cx="30" cy="30" r="10" fill="#8ab4d4" opacity="0.6"/><circle cx="30" cy="30" r="4" fill="#05050f"/><line x1="4" y1="30" x2="14" y2="30" stroke="#8ab4d4" stroke-width="2"/><line x1="46" y1="30" x2="56" y2="30" stroke="#8ab4d4" stroke-width="2"/><line x1="30" y1="4" x2="30" y2="14" stroke="#8ab4d4" stroke-width="2"/><line x1="30" y1="46" x2="30" y2="56" stroke="#8ab4d4" stroke-width="2"/></svg>
-    <svg class="eye-deco eye-right" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="26" fill="none" stroke="#b39ddb" stroke-width="2"/><circle cx="30" cy="30" r="10" fill="#b39ddb" opacity="0.6"/><circle cx="30" cy="30" r="4" fill="#05050f"/><line x1="4" y1="30" x2="14" y2="30" stroke="#b39ddb" stroke-width="2"/><line x1="46" y1="30" x2="56" y2="30" stroke="#b39ddb" stroke-width="2"/><line x1="30" y1="4" x2="30" y2="14" stroke="#b39ddb" stroke-width="2"/><line x1="30" y1="46" x2="30" y2="56" stroke="#b39ddb" stroke-width="2"/></svg>
-    <svg class="eye-deco eye-bottom-l" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="26" fill="none" stroke="#8ab4d4" stroke-width="2"/><circle cx="30" cy="30" r="10" fill="#8ab4d4" opacity="0.5"/><circle cx="30" cy="30" r="4" fill="#05050f"/></svg>
-    <svg class="eye-deco eye-bottom-r" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="26" fill="none" stroke="#b39ddb" stroke-width="2"/><circle cx="30" cy="30" r="10" fill="#b39ddb" opacity="0.5"/><circle cx="30" cy="30" r="4" fill="#05050f"/></svg>
-    <div class="intro-content">
-      <p class="intro-tag">Para: La chica más bonita que conozco ✦</p>
-      <h1 class="intro-title">Feliz<br/>cumpleaños,<br/><em>Jaque</em></h1>
-      <p class="intro-sub">Con todo el amor del mundo     Joshua 🖤</p>
-    </div>
-    <div class="intro-scroll"><span class="ln"></span> desliza ↓<span class="ln"></span></div>
-  </section>
-
-  <!-- SLIDE 2 -->
-  <section class="slide" data-s="2">
-    <div class="slide-tag">01 — Tú</div>
-    <h2 class="slide-hl">Hoy<br/>cumples<br/><em>18 Años</em></h2>
-    <p class="slide-body">Y el universo tiene una razón más para brillar esta noche,hoy llevas 18 años siendo exactamente quien eres, con esa sonrisa que desordena todo de mi, esa ternura que hace que todo sea más suave, y esa inteligencia que nunca deja de sorprenderme.</p>
-    <div class="deco-num">01</div>
-    <div class="img-strip">
-      <div class="img-thumb"><img src="assets/img/foto-01.jpeg" alt="Jaque ✦" loading="lazy"/><span class="cap">Jaque ✦</span></div>
-      <div class="img-thumb"><img src="assets/img/foto-03.jpeg" alt="Jaque 2" loading="lazy"/><span class="cap">18 años 🖤</span></div>
-      <div class="img-thumb"><img src="assets/img/foto-06.jpeg" alt="Jaque 3" loading="lazy"/><span class="cap">Especial 💙</span></div>
-    </div>
-    <div class="mobile-photos">
-      <div class="mp-img"><img src="assets/img/foto-01.jpeg" alt="Jaque ✦" loading="lazy"/><span class="cap">Jaque ✦</span></div>
-      <div class="mp-img"><img src="assets/img/foto-02.jpeg" alt="Jaque 2" loading="lazy"/><span class="cap">18 años 🖤</span></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 3 -->
-  <section class="slide" data-s="3">
-    <div class="slide-tag">02 — El principio</div>
-    <h2 class="slide-hl">30 días<br/><em>contigo</em></h2>
-    <div class="days-tag">✦ 30 días juntos</div>
-    <p class="slide-body">Puede parecer poco para el mundo, pero para mí han sido 30 días aprendiendo que existen personas que te cambian el color de los días,cada uno de esos días contigo ha valido más que muchos años.</p>
-    <div class="deco-num">02</div>
-    <div class="img-strip">
-      <div class="img-thumb"><img src="assets/img/foto-03.jpeg" alt="Juntos ✦" loading="lazy"/><span class="cap">Desde el inicio</span></div>
-      <div class="img-thumb"><img src="assets/img/foto-08.jpeg" alt="juntos 2" loading="lazy"/><span class="cap">Tu casa 🏠</span></div>
-      <div class="img-thumb"><img src="assets/img/foto-12.jpeg" alt="juntos 3" loading="lazy"/><span class="cap">Juntos ✦</span></div>
-    </div>
-    <div class="mobile-photos">
-      <div class="mp-img"><img src="assets/img/foto-12.jpeg" alt="Juntos ✦" loading="lazy"/><span class="cap">Desde el inicio</span></div>
-      <div class="mp-img"><img src="assets/img/foto-05.jpeg" alt="juntos 2" loading="lazy"/><span class="cap">Juntos ✦</span></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 4 -->
-  <section class="slide" data-s="4">
-    <div class="slide-tag">03 — Lo que más me gusta</div>
-    <h2 class="slide-hl">Tus ojos,<br/>tu cabello,<br/><em>tu cintura</em></h2>
-    <p class="slide-body">Hay cosas de ti que no puedo dejar de notar, cómo tus ojos guardan un universo entero,cómo tu cabello cae como si el tiempo lo hubiera coreografiado solo para ti,eres visualmente perfecta amor pero más aún lo que hay adentro de ti.</p>
-    <div class="deco-num">03</div>
-    <div class="img-strip">
-      <div class="img-thumb"><img src="assets/img/foto-07.jpeg" alt="Toda tú ✦" loading="lazy"/><span class="cap">Toda tú ✦</span></div>
-      <div class="img-thumb"><img src="assets/img/foto-08.jpeg" alt="cabello" loading="lazy"/><span class="cap">Tu cabello 🖤</span></div>
-      <div class="img-thumb"><img src="assets/img/foto-09.jpeg" alt="ella" loading="lazy"/><span class="cap">Tus ojos 💙</span></div>
-    </div>
-    <div class="mobile-photos">
-      <div class="mp-img"><img src="assets/img/foto-07.jpeg" alt="Toda tú ✦" loading="lazy"/><span class="cap">Toda tú ✦</span></div>
-      <div class="mp-img"><img src="assets/img/foto-08.jpeg" alt="cabello" loading="lazy"/><span class="cap">Tu cabello 🖤</span></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 5 -->
-  <section class="slide" data-s="5">
-    <div class="slide-tag">04 — Nuestra música</div>
-    <h2 class="slide-hl">Lado<br/><em>frágil</em></h2>
-    <div class="quote-blk">
-      <p>"Eres el lado frágil que nadie más ve, el que me hace sentir en casa."</p>
-      <p class="qau">— Inspirado en Carín León</p>
-    </div>
-    <div class="quote-blk">
-      <p>"Amapola, flor silvestre así eres tú, natural y hermosa, sin darte cuenta de todo lo que provocas."</p>
-      <p class="qau">— Inspirado en Amapola</p>
-    </div>
-    <div class="deco-num">04</div>
-    <div class="img-strip">
-      <div class="img-thumb"><img src="assets/img/foto-10.jpeg" alt="musica" loading="lazy"/><span class="cap">Nuestra música 🎵</span></div>
-      <div class="img-thumb"><img src="assets/img/foto-11.jpeg" alt="cancion" loading="lazy"/><span class="cap">Lado Frágil 💙</span></div>
-    </div>
-    <div class="mobile-photos">
-      <div class="mp-img"><img src="assets/img/foto-10.jpeg" alt="musica" loading="lazy"/><span class="cap">Nuestra música 🎵</span></div>
-      <div class="mp-img"><img src="assets/img/foto-11.jpeg" alt="cancion" loading="lazy"/><span class="cap">Lado Frágil 💙</span></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 6 -->
-  <section class="slide" data-s="6">
-    <div class="slide-tag">05 — Lo que eres</div>
-    <h2 class="slide-hl">Tu sonrisa,<br/>tu ternura,<br/><em>tu mente</em></h2>
-    <p class="slide-body">Me gusta tu sonrisa y la alegría que llevas contigo sin proponértelo. Me gusta tu ternura, esa calidez que hace que todo se sienta más seguro. Me gusta tu inteligencia — la forma en que piensas, en que ves las cosas. Eres una mezcla de todo lo que admiro en una persona, Jaque.</p>
-    <div class="deco-num">05</div>
-    <div class="img-strip">
-      <div class="img-thumb"><img src="assets/img/foto-12.jpeg" alt="sonrisa" loading="lazy"/><span class="cap">Tu sonrisa 🖤</span></div>
-      <div class="img-thumb"><img src="assets/img/foto-13.jpeg" alt="ternura" loading="lazy"/><span class="cap">Tu ternura 💙</span></div>
-      <div class="img-thumb"><img src="assets/img/foto-14.jpeg" alt="mente" loading="lazy"/><span class="cap">Tu mente 💜</span></div>
-    </div>
-    <div class="mobile-photos">
-      <div class="mp-img"><img src="assets/img/foto-12.jpeg" alt="sonrisa" loading="lazy"/><span class="cap">Tu sonrisa 🖤</span></div>
-      <div class="mp-img"><img src="assets/img/foto-13.jpeg" alt="ternura" loading="lazy"/><span class="cap">Tu ternura 💙</span></div>
-    </div>
-  </section>
-
-  <!-- ══ SLIDE 7 — RULETA DE CUMPLEAÑOS ══ -->
-  <section class="slide" data-s="7" id="slide-roulette">
-    <style>
-      #slide-roulette {
-        justify-content: flex-start;
-        align-items: center;
-        text-align: center;
-        padding: 16px 16px 80px;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-      .rl-tag {
-        font-family: 'DM Mono', monospace;
-        font-size: clamp(9px,2.2vw,11px);
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-        color: #e8a0d0;
-        margin-bottom: 6px;
-        margin-top: clamp(6px,1.5vh,16px);
-      }
-      .rl-title {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(24px,5.5vw,48px);
-        font-style: italic;
-        font-weight: 300;
-        color: #fff;
-        margin-bottom: 8px;
-        line-height: 1.1;
-      }
-      .rl-sub {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(13px,1.5vw,16px);
-        color: rgba(240,220,255,0.72);
-        margin-bottom: clamp(14px,2.5vh,22px);
-        line-height: 1.55;
-        max-width: 400px;
-        padding: 0 8px;
-      }
-      .rl-wheel-wrap {
-        position: relative;
-        width: min(280px,78vw);
-        height: min(280px,78vw);
-        margin: 0 auto clamp(14px,2.5vh,20px);
-        flex-shrink: 0;
-      }
-      .rl-wheel-wrap canvas { display:block; border-radius:50%; }
-      .rl-pointer {
-        position: absolute;
-        top: 50%;
-        right: -20px;
-        transform: translateY(-50%);
-        width: 0; height: 0;
-        border-top: 13px solid transparent;
-        border-bottom: 13px solid transparent;
-        border-right: 26px solid #f0b8e0;
-        filter: drop-shadow(0 0 8px rgba(240,140,200,0.95));
-        z-index: 10;
-      }
-      .rl-center {
-        position: absolute;
-        top:50%; left:50%;
-        transform: translate(-50%,-50%);
-        width: 48px; height: 48px;
-        border-radius: 50%;
-        background: radial-gradient(circle,#2a0a3a 0%,#120320 100%);
-        border: 2px solid #e8a0d0;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 20px;
-        box-shadow: 0 0 18px rgba(232,160,208,0.5);
-        z-index: 20;
-      }
-      .rl-glow-ring {
-        position:absolute; inset:-8px; border-radius:50%;
-        border: 2px solid rgba(232,160,208,0.28);
-        box-shadow: 0 0 28px rgba(232,160,208,0.18), inset 0 0 18px rgba(160,100,240,0.1);
-        pointer-events:none;
-        animation: rlGlowPulse 2.8s ease-in-out infinite;
-      }
-      @keyframes rlGlowPulse {
-        0%,100%{box-shadow:0 0 20px rgba(232,160,208,0.15),inset 0 0 14px rgba(160,100,240,0.08);}
-        50%{box-shadow:0 0 52px rgba(232,160,208,0.38),inset 0 0 28px rgba(160,100,240,0.2);}
-      }
-      .rl-btn-row {
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: clamp(12px,2vh,18px);
-        flex-wrap: wrap;
-      }
-      .rl-spin-btn {
-        font-family: 'DM Mono', monospace;
-        font-size: clamp(11px,2.8vw,14px);
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: #1a0525;
-        background: linear-gradient(135deg,#f0c0e0 0%,#e090c8 50%,#c880f0 100%);
-        border: none;
-        padding: clamp(12px,2.8vw,15px) clamp(22px,5.5vw,38px);
-        cursor: pointer;
-        border-radius: 4px;
-        transition: all 0.25s;
-        box-shadow: 0 4px 22px rgba(220,140,200,0.4);
-        touch-action: manipulation;
-        font-weight: 400;
-      }
-      .rl-spin-btn:hover:not(:disabled){ transform:translateY(-2px); box-shadow:0 6px 30px rgba(220,140,200,0.6); }
-      .rl-spin-btn:disabled{ opacity:0.38; cursor:not-allowed; transform:none; }
-      .rl-spins-left {
-        font-family: 'DM Mono', monospace;
-        font-size: clamp(9px,2.2vw,11px);
-        letter-spacing: 0.2em;
-        color: rgba(240,220,255,0.48);
-        text-transform: uppercase;
-      }
-      .rl-prizes-won {
-        display: flex;
-        gap: 7px;
-        justify-content: center;
-        flex-wrap: wrap;
-        max-width: 380px;
-        margin: 0 auto clamp(10px,1.8vh,16px);
-      }
-      .rl-prize-badge {
-        background: rgba(232,160,208,0.09);
-        border: 1px solid rgba(232,160,208,0.22);
-        border-radius: 20px;
-        padding: 5px 13px;
-        font-family: 'DM Mono', monospace;
-        font-size: clamp(9px,2vw,10px);
-        color: rgba(240,220,255,0.42);
-        letter-spacing: 0.1em;
-        transition: all 0.45s cubic-bezier(0.34,1.56,0.64,1);
-      }
-      .rl-prize-badge.won {
-        background: rgba(232,160,208,0.22);
-        border-color: #e8a0d0;
-        color: #f5daf5;
-        box-shadow: 0 0 14px rgba(232,160,208,0.35);
-        transform: scale(1.05);
-      }
-      .rl-result {
-        min-height: 76px;
-        background: rgba(220,140,200,0.08);
-        border: 1px solid rgba(220,140,200,0.22);
-        border-radius: 14px;
-        padding: 14px 18px;
-        max-width: 360px;
-        width: 100%;
-        margin: 0 auto clamp(10px,1.8vh,16px);
-        display: none;
-        animation: rlIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
-      }
-      .rl-result.show { display:block; }
-      @keyframes rlIn{from{opacity:0;transform:scale(0.82) translateY(12px);}to{opacity:1;transform:scale(1) translateY(0);}}
-      .rl-result-emoji { font-size: clamp(28px,6.5vw,40px); margin-bottom: 5px; }
-      .rl-result-name {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(17px,3.5vw,22px);
-        font-style: italic;
-        color: #fff;
-        margin-bottom: 4px;
-      }
-      .rl-result-desc {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(13px,1.4vw,15px);
-        color: rgba(240,215,255,0.68);
-        line-height: 1.5;
-      }
-      .rl-final {
-        display: none;
-        background: linear-gradient(135deg,rgba(240,150,210,0.1) 0%,rgba(150,100,255,0.1) 100%);
-        border: 1px solid rgba(232,160,208,0.38);
-        border-radius: 16px;
-        padding: clamp(14px,2.8vh,22px) clamp(16px,4vw,26px);
-        max-width: 380px;
-        width: 100%;
-        margin: 0 auto;
-        animation: rlIn 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
-      }
-      .rl-final.show { display:block; }
-      .rl-final-icon { font-size: 42px; margin-bottom: 10px; }
-      .rl-final-text {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(15px,2.8vw,19px);
-        font-style: italic;
-        color: #fff;
-        line-height: 1.65;
-      }
-      /* Confetti & hearts */
-      #rl-confetti-canvas {
-        position: fixed; inset: 0;
-        pointer-events: none; z-index: 9999;
-        display: none;
-      }
-      .rl-hearts-container {
-        position: fixed; inset: 0;
-        pointer-events: none; z-index: 9998;
-        overflow: hidden;
-      }
-      .rl-heart {
-        position: absolute;
-        animation: rlHeartRise linear forwards;
-        opacity: 0;
-      }
-      @keyframes rlHeartRise {
-        0%   { transform: translateY(0) scale(0) rotate(-10deg); opacity:1; }
-        100% { transform: translateY(-110vh) scale(1.4) rotate(15deg); opacity:0; }
-      }
-      /* Sparkle ring that appears on result */
-      .rl-sparkle-ring {
-        position:absolute; inset:-12px; border-radius:50%;
-        border:2px dashed rgba(232,160,208,0.6);
-        animation: rlSpinRing 6s linear infinite;
-        pointer-events:none;
-        opacity:0;
-        transition:opacity 0.4s;
-      }
-      .rl-sparkle-ring.active { opacity:1; }
-      @keyframes rlSpinRing { from{transform:rotate(0deg);}to{transform:rotate(360deg);} }
-    </style>
-
-    <canvas id="rl-confetti-canvas"></canvas>
-    <div class="rl-hearts-container" id="rl-hearts"></div>
-
-    <p class="rl-tag">06 — Tu sorpresa</p>
-    <h2 class="rl-title">🎉 Escoge tu premio 🎉</h2>
-    <p class="rl-sub">Porque hoy es tu día especial, la suerte tiene algunos regalos preparados para ti ❤️</p>
-
-    <div class="rl-wheel-wrap">
-      <div class="rl-glow-ring"></div>
-      <div class="rl-sparkle-ring" id="rl-sparkle-ring"></div>
-      <canvas id="rl-canvas" width="300" height="300"></canvas>
-      <div class="rl-pointer"></div>
-      <div class="rl-center">🎀</div>
-    </div>
-
-    <div class="rl-btn-row">
-      <button class="rl-spin-btn" id="rl-spin-btn" onclick="rlSpin()">✦ Girar ✦</button>
-      <span class="rl-spins-left" id="rl-spins-left">3 giros disponibles</span>
-    </div>
-
-    <div class="rl-prizes-won" id="rl-prizes-won">
-      <span class="rl-prize-badge" id="badge-0">🎁 Regalo 1  </span>
-      <span class="rl-prize-badge" id="badge-1">🎁 Regalo 2</span>
-      <span class="rl-prize-badge" id="badge-2"> 🎁 Regalo 3</span>
-    </div>
-
-    <div class="rl-result" id="rl-result">
-      <div class="rl-result-emoji" id="rl-res-emoji">🎁</div>
-      <div class="rl-result-name" id="rl-res-name">Premio</div>
-      <div class="rl-result-desc" id="rl-res-desc">Descripción</div>
-    </div>
-
-    <div class="rl-final" id="rl-final">
-      <div class="rl-final-icon">👑</div>
-      <p class="rl-final-text">¡Felicidades, princesa! ❤️ Has desbloqueado todos tus premios de cumpleaños. Te amo y espero que este día sea tan especial como tú.</p>
-    </div>
-
-    <script>
-    (function(){
-      const GUARANTEED = [
-        { emoji:'🎁', name:'Regalo sorpresa', desc:'El día de tu cumpleaños recibirás algo muy especial de mi parte.', color:'#c070d8' },
-        { emoji:'❤️', name:'Una cita conmigo', desc:'Una noche especial para los dos, a donde tú quieras ir.', color:'#e05880' },
-        { emoji:'🍦', name:'Vamos por un helado', desc:'El sabor que quieras, cuando tú digas. Promesa cumplida.', color:'#e890b8' },
-      ];
-      const EXTRAS = [
-        { emoji:'💌', name:'Carta especial', desc:'Escrita de mi puño y letra, solo para ti.', color:'#9868d0' },
-        { emoji:'🌹', name:'Un detalle sorpresa', desc:'Algo pequeño pero lleno de amor.', color:'#d85878' },
-        { emoji:'🎬', name:'Noche de películas', desc:'Tú eliges la película, yo pongo las palomitas.', color:'#7858c8' },
-        { emoji:'🤗', name:'Abrazo extra largo', desc:'El tipo que dura hasta que tú lo sueltes primero.', color:'#c060b8' },
-        { emoji:'🍫', name:'Tu dulce favorito', desc:'El que siempre te antoja y nunca te compras.', color:'#a85090' },
-        { emoji:'📸', name:'Foto especial juntos', desc:'Para que quede guardado este momento para siempre.', color:'#8850c0' },
-      ];
-
-      // 9 segments: guaranteed at positions 0,3,6
-      const TOTAL = 9;
-      const segments = new Array(TOTAL);
-      const gPositions = [0, 3, 6];
-      gPositions.forEach((pos,i) => segments[pos] = {...GUARANTEED[i], gIdx:i});
-      let ei = 0;
-      for(let i=0;i<TOTAL;i++) if(!segments[i]) segments[i] = {...EXTRAS[ei++ % EXTRAS.length]};
-
-      let spinsLeft=3, spinsDone=0, currentAngle=0, spinning=false;
-
-      // Canvas setup
-      const canvas = document.getElementById('rl-canvas');
-      const ctx = canvas.getContext('2d');
-      const SIZE = 300;
-      function resizeRl(){
-        const max = Math.min(window.innerWidth*0.78, 280);
-        canvas.style.width = max+'px'; canvas.style.height = max+'px';
-      }
-      resizeRl();
-      window.addEventListener('resize', resizeRl);
-      const cx=SIZE/2, cy=SIZE/2, R=SIZE/2-3;
-      const arc = Math.PI*2/TOTAL;
-
-      function lighten(hex,a){
-        const c=parseInt(hex.slice(1),16);
-        const r=Math.min(255,((c>>16)&255)+a);
-        const g=Math.min(255,((c>>8)&255)+a);
-        const b=Math.min(255,(c&255)+a);
-        return `rgb(${r},${g},${b})`;
-      }
-
-      function drawWheel(angle){
-        ctx.clearRect(0,0,SIZE,SIZE);
-        // Shadow ring
-        ctx.save();
-        ctx.shadowColor='rgba(232,140,200,0.3)';
-        ctx.shadowBlur=22;
-        ctx.beginPath();ctx.arc(cx,cy,R+2,0,Math.PI*2);
-        ctx.strokeStyle='rgba(232,140,200,0.15)';ctx.lineWidth=3;ctx.stroke();
-        ctx.restore();
-
-        segments.forEach((seg,i)=>{
-          const s=angle+i*arc-Math.PI/2, e=s+arc;
-          ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,R,s,e);ctx.closePath();
-          const gf=ctx.createRadialGradient(cx,cy,0,cx,cy,R);
-          gf.addColorStop(0,lighten(seg.color,50));
-          gf.addColorStop(1,seg.color);
-          ctx.fillStyle=gf; ctx.fill();
-          ctx.strokeStyle='rgba(255,255,255,0.16)';ctx.lineWidth=1.5;ctx.stroke();
-
-          ctx.save();
-          ctx.translate(cx,cy);ctx.rotate(s+arc/2);
-          ctx.font=`${SIZE*0.068}px serif`;
-          ctx.textAlign='center';ctx.textBaseline='middle';
-          ctx.fillText(seg.emoji,R*0.63,0);
-          ctx.font=`bold ${SIZE*0.038}px 'DM Mono',monospace`;
-          ctx.fillStyle='rgba(255,255,255,0.88)';
-          const nm=seg.name.split(' ');
-          ctx.fillText((nm[0]+(nm[1]?' '+nm[1]:'')).substring(0,12),R*0.28,0);
-          ctx.restore();
-        });
-
-        // Inner cap
-        ctx.beginPath();ctx.arc(cx,cy,R*0.16,0,Math.PI*2);
-        ctx.fillStyle='#120220';ctx.fill();
-        ctx.strokeStyle='rgba(232,150,210,0.6)';ctx.lineWidth=2;ctx.stroke();
-      }
-      drawWheel(currentAngle);
-
-      window.rlSpin = function(){
-        if(spinning||spinsLeft<=0) return;
-        spinning=true;
-        document.getElementById('rl-spin-btn').disabled=true;
-        document.getElementById('rl-sparkle-ring').classList.remove('active');
-
-        const gIdx=spinsDone;
-        const targetPos=gPositions[gIdx];
-        // Pointer at 180° from top (pointing left from right side)
-        const segCenter=targetPos*arc+arc/2;
-        const targetFromTop=Math.PI-segCenter;
-        const extra=(4.5+gIdx*0.7)*Math.PI*2;
-        let target=currentAngle+extra+(((targetFromTop-currentAngle%(Math.PI*2))+Math.PI*4)%(Math.PI*2));
-        if(target-currentAngle<Math.PI*6) target+=Math.PI*2;
-
-        const startA=currentAngle, t0=performance.now();
-        const dur=4200+gIdx*350;
-        function ease(t){return 1-Math.pow(1-t,4.2);}
-
-        function tick(now){
-          const t=Math.min((now-t0)/dur,1);
-          currentAngle=startA+(target-startA)*ease(t);
-          drawWheel(currentAngle);
-          if(t<1){requestAnimationFrame(tick);}
-          else{
-            currentAngle=target;drawWheel(currentAngle);
-            spinning=false;spinsDone++;spinsLeft--;
-            document.getElementById('rl-sparkle-ring').classList.add('active');
-            showResult(gIdx);
-          }
-        }
-        requestAnimationFrame(tick);
-      };
-
-      function showResult(gIdx){
-        const p=GUARANTEED[gIdx];
-        const res=document.getElementById('rl-result');
-        document.getElementById('rl-res-emoji').textContent=p.emoji;
-        document.getElementById('rl-res-name').textContent=p.name;
-        document.getElementById('rl-res-desc').textContent=p.desc;
-        res.classList.remove('show');void res.offsetHeight;res.classList.add('show');
-
-        document.getElementById('badge-'+gIdx).classList.add('won');
-
-        const sl=document.getElementById('rl-spins-left');
-        if(spinsLeft>0){
-          sl.textContent=spinsLeft+' giro'+(spinsLeft!==1?'s':'')+' restante'+(spinsLeft!==1?'s':'');
-          document.getElementById('rl-spin-btn').disabled=false;
-        } else {
-          sl.textContent='✦ Todos los premios desbloqueados ✦';
-          setTimeout(showFinal,1400);
-        }
-        launchConfetti(); launchHearts();
-      }
-
-      function showFinal(){
-        document.getElementById('rl-result').classList.remove('show');
-        document.getElementById('rl-final').classList.add('show');
-        document.getElementById('rl-spin-btn').disabled=true;
-        launchConfetti(true); launchHearts(true);
-      }
-
-      function launchConfetti(big){
-        const cc=document.getElementById('rl-confetti-canvas');
-        cc.style.display='block';
-        cc.width=window.innerWidth;cc.height=window.innerHeight;
-        const cctx=cc.getContext('2d');
-        const cols=['#f0c0e0','#e890c8','#d4a0ff','#ff8fb0','#ffd6f0','#c8a0ff','#ffb3d8','#f0d060'];
-        const n=big?220:130;
-        const pts=Array.from({length:n},()=>({
-          x:Math.random()*cc.width, y:-10-Math.random()*80,
-          vx:(Math.random()-0.5)*6, vy:Math.random()*4.5+2,
-          r:Math.random()*6+3, color:cols[Math.floor(Math.random()*cols.length)],
-          rot:Math.random()*Math.PI*2, rv:(Math.random()-0.5)*0.22,
-          shape:Math.random()>0.5?'rect':'circle',
-        }));
-        let fr=0;
-        function ac(){
-          cctx.clearRect(0,0,cc.width,cc.height);
-          let alive=false;
-          pts.forEach(p=>{
-            p.x+=p.vx;p.y+=p.vy;p.rot+=p.rv;p.vy+=0.07;
-            if(p.y<cc.height+20)alive=true;
-            cctx.save();cctx.translate(p.x,p.y);cctx.rotate(p.rot);
-            cctx.fillStyle=p.color;cctx.globalAlpha=Math.max(0,1-fr/210);
-            if(p.shape==='rect') cctx.fillRect(-p.r/2,-p.r*1.5,p.r,p.r*3);
-            else{cctx.beginPath();cctx.arc(0,0,p.r,0,Math.PI*2);cctx.fill();}
-            cctx.restore();
-          });
-          fr++;
-          if(alive&&fr<230)requestAnimationFrame(ac);
-          else{cc.style.display='none';cctx.clearRect(0,0,cc.width,cc.height);}
-        }
-        requestAnimationFrame(ac);
-      }
-
-      function launchHearts(big){
-        const hc=document.getElementById('rl-hearts');
-        const emojis=['❤️','🩷','💜','💖','💝','✨','🌸','💗','🌺'];
-        const n=big?20:12;
-        for(let i=0;i<n;i++){
-          setTimeout(()=>{
-            const h=document.createElement('span');
-            h.className='rl-heart';
-            h.textContent=emojis[Math.floor(Math.random()*emojis.length)];
-            h.style.left=(8+Math.random()*84)+'%';
-            h.style.bottom=(4+Math.random()*18)+'%';
-            h.style.animationDuration=(2.2+Math.random()*2.5)+'s';
-            h.style.animationDelay=(Math.random()*0.6)+'s';
-            h.style.fontSize=(14+Math.random()*18)+'px';
-            hc.appendChild(h);
-            setTimeout(()=>h.remove(),6000);
-          },i*100);
-        }
-      }
-    })();
-    </script>
-  </section>
-
-  <!-- SLIDE 8 — GALERÍA -->
-  <section class="slide" data-s="8" style="padding:0;align-items:stretch;justify-content:stretch;">
-    <div class="gallery-label">Jaque — Mi galería favorita ✦</div>
-    <div class="gallery-grid">
-      <div class="g-cell"><img src="assets/img/foto-01.jpeg" alt="g1" loading="lazy"/><span class="cap">Ella I ✦</span></div>
-      <div class="g-cell"><img src="assets/img/foto-03.jpeg" alt="g2" loading="lazy"/><span class="cap">Ella II 🖤</span></div>
-      <div class="g-cell"><img src="assets/img/foto-07.jpeg" alt="g3" loading="lazy"/><span class="cap">Ella III 💙</span></div>
-      <div class="g-cell"><img src="assets/img/foto-18.jpeg" alt="g4" loading="lazy"/><span class="cap">Ella IV 💜</span></div>
-      <div class="g-cell"><img src="assets/img/foto-19.jpeg" alt="g5" loading="lazy"/><span class="cap">Ella V ✦</span></div>
-      <div class="g-cell"><img src="assets/img/foto-20.jpeg" alt="g6" loading="lazy"/><span class="cap">Ella VI 🎵</span></div>
-    </div>
-  </section>
-
-  <!-- SLIDE 9 — RAZONES -->
-  <section class="slide" id="slide-reasons" data-s="9">
-    <div class="slide-tag">07 — Toca cada razón</div>
-    <h2 class="slide-hl" style="font-size:clamp(32px,6vw,88px);margin-bottom:12px;">Por qué<br/><em>te quiero</em></h2>
-    <p class="reasons-title">Toca cada tarjeta para descubrir una razón</p>
-    <div class="reasons-grid">
-      <div class="reason-card" onclick="revealReason(this)"><p class="rc-num">01</p><p class="rc-front">Toca para descubrir ✦</p><p class="rc-back">Porque tu sonrisa hace que todo valga la pena, aunque el día haya sido difícil.</p></div>
-      <div class="reason-card" onclick="revealReason(this)"><p class="rc-num">02</p><p class="rc-front">Toca para descubrir ✦</p><p class="rc-back">Porque eres inteligente de verdad — no finges, no aparentas. Eso es muy difícil de encontrar.</p></div>
-      <div class="reason-card" onclick="revealReason(this)"><p class="rc-num">03</p><p class="rc-front">Toca para descubrir ✦</p><p class="rc-back">Porque tu ternura me hace querer ser mejor persona cada día.</p></div>
-      <div class="reason-card" onclick="revealReason(this)"><p class="rc-num">04</p><p class="rc-front">Toca para descubrir ✦</p><p class="rc-back">Porque tus ojos dicen más cosas que cualquier palabra que hayas pronunciado.</p></div>
-      <div class="reason-card" onclick="revealReason(this)"><p class="rc-num">05</p><p class="rc-front">Toca para descubrir ✦</p><p class="rc-back">Porque me presentaste a tu familia — y eso me dice que también soy importante para ti.</p></div>
-      <div class="reason-card" onclick="revealReason(this)"><p class="rc-num">06</p><p class="rc-front">Toca para descubrir ✦</p><p class="rc-back">Porque en 30 días me enseñaste más sobre lo que quiero en la vida que años enteros sin ti.</p></div>
-    </div>
-    <p class="reasons-hint" id="reasons-hint">0 / 6 descubiertas</p>
-  </section>
-
-  <!-- SLIDE 10 — FINAL -->
-  <section class="slide" data-s="10">
-    <div class="slide-tag">Y así... te lo digo</div>
-    <h2 class="slide-hl">Feliz<br/>cumpleaños,<br/><em>mi amor</em></h2>
-    <p class="slide-body">No sé exactamente cómo explicarlo, pero desde que te conozco algo cambió. Me gustas tal y como eres. Quiero seguir conociéndote, quiero seguir construyendo momentos contigo — y con la familia que me ha abierto las puertas. El cielo de esta noche tiene más estrellas de lo normal. Todas para ti. ✦</p>
-    <a class="btn-final" href="https://wa.me/?text=Recibí%20tu%20carta%2C%20Joshua%20🖤" target="_blank">
-      <span>Responder a Joshua 💙</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    </a>
-    <div class="deco-num">✦</div>
-  </section>
-
+  <div class="summary">
+    <div class="summary-title">Análisis</div>
+    <div class="summary-text" id="summaryText">Responde las preguntas para ver el análisis de viabilidad.</div>
+  </div>
 </div>
 
 <script>
-(function(){
-'use strict';
-
-// ── ESTRELLAS ──
-const canvas=document.getElementById('starfield'),ctx=canvas.getContext('2d');
-let W,H,stars=[];
-function initStars(){
-  W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;
-  stars=Array.from({length:280},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.5+0.2,sp:Math.random()*0.007+0.002,ph:Math.random()*Math.PI*2,col:['#ffffff','#8ab4d4','#b39ddb','#7ec8e3','#d4c8f0','#f0c0e0'][Math.floor(Math.random()*6)]}));
-}
-initStars();
-window.addEventListener('resize',initStars);
-function drawStars(t){
-  ctx.clearRect(0,0,W,H);
-  stars.forEach(s=>{const al=0.2+0.7*(0.5+0.5*Math.sin(t*s.sp+s.ph));ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=s.col;ctx.globalAlpha=al;ctx.fill();});
-  ctx.globalAlpha=1;requestAnimationFrame(drawStars);
-}
-requestAnimationFrame(drawStars);
-
-// ── CORALINE DUST ──
-(function(){
-  const container=document.getElementById('coraline-dust');
-  if(!container)return;
-  const colors=['#8ab4d4','#b39ddb','#7ec8e3','#d4c8f0','#ffffff','#f0c0e0'];
-  for(let i=0;i<28;i++){
-    const s=document.createElement('span');
-    const size=Math.random()*4+1.5;
-    s.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;bottom:-10px;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*14}s;box-shadow:0 0 ${size*2}px ${colors[0]};`;
-    container.appendChild(s);
-  }
-})();
-
-// ── DETECT MOBILE ──
-const isMobile=()=>window.innerWidth<=768;
-
-// ── SLIDES ──
-const slides=Array.from(document.querySelectorAll('.slide'));
-const total=slides.length;
-let current=0,anim=false;
-const DUR=920;
-document.getElementById('cnt-t').textContent=total;
-const cntC=document.getElementById('cnt-c');
-function setColor(i){document.body.className='s'+(i+1);}
-slides[0].classList.add('is-active');setColor(0);
-
-function goTo(i,dir){
-  if(anim||i===current||i<0||i>=total)return;
-  anim=true;
-  const from=slides[current],to=slides[i];
-  to.classList.remove('is-active','exit-up','exit-down');
-  void to.offsetHeight;
-  from.classList.remove('is-active');
-  from.classList.add(dir==='fwd'?'exit-up':'exit-down');
-  to.classList.add('is-active');
-  to.scrollTop=0;
-  current=i;cntC.textContent=current+1;setColor(current);
-  setTimeout(()=>{from.classList.remove('exit-up','exit-down');anim=false;},DUR);
-}
-function next(){goTo(current+1,'fwd');}
-function prev(){goTo(current-1,'bwd');}
-
-// ── SCROLL / WHEEL ──
-let wcd=false;
-window.addEventListener('wheel',e=>{
-  if(wcd)return;
-  const sl=slides[current];
-  const canScroll=sl.scrollHeight>sl.clientHeight;
-  if(canScroll&&isMobile()){
-    if(e.deltaY>0&&sl.scrollTop<sl.scrollHeight-sl.clientHeight-5)return;
-    if(e.deltaY<0&&sl.scrollTop>5)return;
-  }
-  wcd=true;e.deltaY>0?next():prev();setTimeout(()=>wcd=false,DUR+100);
-},{passive:true});
-
-window.addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key==='ArrowRight')next();if(e.key==='ArrowUp'||e.key==='ArrowLeft')prev();});
-
-// ── TOUCH ──
-let tY=0,tX=0,tScrolling=false;
-window.addEventListener('touchstart',e=>{tY=e.touches[0].clientY;tX=e.touches[0].clientX;tScrolling=false;},{passive:true});
-window.addEventListener('touchmove',e=>{const dy=Math.abs(e.touches[0].clientY-tY);const dx=Math.abs(e.touches[0].clientX-tX);if(dy>dx)tScrolling=true;},{passive:true});
-window.addEventListener('touchend',e=>{
-  if(!tScrolling)return;
-  const sl=slides[current];
-  const dy=tY-e.changedTouches[0].clientY;
-  if(Math.abs(dy)<50)return;
-  const canScroll=sl.scrollHeight>sl.clientHeight+10;
-  if(canScroll&&isMobile()){
-    if(dy>0&&sl.scrollTop<sl.scrollHeight-sl.clientHeight-5)return;
-    if(dy<0&&sl.scrollTop>5)return;
-  }
-  dy>0?next():prev();
-},{passive:true});
-
-document.getElementById('btn-dn').addEventListener('click',next);
-document.getElementById('btn-up').addEventListener('click',prev);
-
-// ── SOBRE + PHOTO REVEAL ──
-const envSc=document.getElementById('env-screen');
-const photoReveal=document.getElementById('photo-reveal');
-document.getElementById('open-btn').addEventListener('click',()=>{
-  envSc.classList.add('hidden');
-  setTimeout(()=>envSc.style.display='none',950);
-  photoReveal.classList.add('show');
-  tryPlayMusic();
-});
-document.getElementById('pr-skip').addEventListener('click',()=>{
-  photoReveal.classList.add('fade-out');
-  setTimeout(()=>{photoReveal.style.display='none';},650);
-});
-
-// ── MÚSICA: YouTube IFrame API ──
-const musicBtn=document.getElementById('music-btn');
-const musicViz=document.getElementById('music-viz');
-let ytPlayer=null,ytReady=false,pendingPlay=false;
-const ytScript=document.createElement('script');
-ytScript.src='https://www.youtube.com/iframe_api';
-document.head.appendChild(ytScript);
-const ytDiv=document.createElement('div');
-ytDiv.id='yt-player';
-ytDiv.style.cssText='position:fixed;bottom:-9999px;left:-9999px;width:1px;height:1px;';
-document.body.appendChild(ytDiv);
-window.onYouTubeIframeAPIReady=function(){
-  ytPlayer=new YT.Player('yt-player',{
-    height:'1',width:'1',videoId:'5QNXO5MGBEA',
-    playerVars:{autoplay:0,loop:1,playlist:'5QNXO5MGBEA',controls:0,disablekb:1,fs:0,rel:0,origin:window.location.origin},
-    events:{
-      onReady:function(){ytReady=true;if(pendingPlay){ytPlayer.setVolume(75);ytPlayer.playVideo();}},
-      onStateChange:function(e){
-        if(e.data===YT.PlayerState.PLAYING){musicBtn.classList.remove('paused');musicViz.classList.remove('paused');}
-        else{musicBtn.classList.add('paused');musicViz.classList.add('paused');}
-      }
-    }
-  });
-};
-function tryPlayMusic(){
-  if(ytReady&&ytPlayer){ytPlayer.setVolume(75);ytPlayer.playVideo();}
-  else{pendingPlay=true;}
-}
-musicBtn.addEventListener('click',()=>{
-  if(!ytReady||!ytPlayer){pendingPlay=!pendingPlay;return;}
-  const st=ytPlayer.getPlayerState();
-  if(st===YT.PlayerState.PLAYING)ytPlayer.pauseVideo();
-  else{ytPlayer.setVolume(75);ytPlayer.playVideo();}
-});
-
-// ── LIGHTBOX ──
-const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lb-img'),lbCap=document.getElementById('lb-cap');
-let lbImgs=[],lbIdx=0;
-function getAllLightboxImgs(slide){
-  const imgs=[];
-  slide.querySelectorAll('.img-thumb img,.g-cell img,.mp-img img').forEach(img=>{
-    const cap=img.closest('.img-thumb,.g-cell,.mp-img')?.querySelector('.cap')?.textContent?.trim()||img.alt||'';
-    imgs.push({src:img.src,cap});
-  });
-  return imgs;
-}
-function openLB(imgs,idx){if(!imgs.length)return;lbImgs=imgs;lbIdx=idx;updateLB();lb.classList.add('open');}
-function closeLB(){lb.classList.remove('open');}
-function updateLB(){
-  if(!lbImgs.length)return;
-  lbImg.src=lbImgs[lbIdx].src;lbImg.alt=lbImgs[lbIdx].cap;
-  lbCap.textContent=(lbImgs[lbIdx].cap?lbImgs[lbIdx].cap+' — ':'')+''+(lbIdx+1)+'/'+lbImgs.length;
-  document.getElementById('lb-prev').style.display=lbImgs.length>1?'flex':'none';
-  document.getElementById('lb-next').style.display=lbImgs.length>1?'flex':'none';
-}
-function lbN(){lbIdx=(lbIdx+1)%lbImgs.length;updateLB();}
-function lbP(){lbIdx=(lbIdx-1+lbImgs.length)%lbImgs.length;updateLB();}
-document.querySelectorAll('.img-thumb,.g-cell,.mp-img').forEach(th=>{
-  th.addEventListener('click',()=>{
-    const sl=th.closest('.slide');
-    const all=getAllLightboxImgs(sl);
-    const thi=Array.from(sl.querySelectorAll('.img-thumb img,.g-cell img,.mp-img img')).indexOf(th.querySelector('img'));
-    openLB(all,thi<0?0:thi);
-  });
-});
-document.getElementById('lb-close').addEventListener('click',closeLB);
-document.getElementById('lb-prev').addEventListener('click',lbP);
-document.getElementById('lb-next').addEventListener('click',lbN);
-lb.addEventListener('click',e=>{if(e.target===lb)closeLB();});
-window.addEventListener('keydown',e=>{
-  if(!lb.classList.contains('open'))return;
-  if(e.key==='ArrowRight')lbN();if(e.key==='ArrowLeft')lbP();if(e.key==='Escape')closeLB();
-});
-let lbTX=0;
-lb.addEventListener('touchstart',e=>lbTX=e.touches[0].clientX,{passive:true});
-lb.addEventListener('touchend',e=>{const dx=lbTX-e.changedTouches[0].clientX;if(Math.abs(dx)>45){dx>0?lbN():lbP();}},{passive:true});
-
-})();
-
-// ── RAZONES ──
-let revealed=0;
-function revealReason(card){
-  if(card.classList.contains('revealed'))return;
-  card.classList.add('revealed');revealed++;
-  const hint=document.getElementById('reasons-hint');
-  hint.textContent=revealed<6?revealed+' / 6 descubiertas':'✦ Las has descubierto todas — gracias por leer ✦';
+const questions = [
+  { id: 1, text: "¿Existe un problema real con el sistema actual de asistencia?", category: "problema" },
+  { id: 2, text: "¿Los maestros invierten demasiado tiempo en pasar lista?", category: "problema" },
+  { id: 3, text: "¿Se ha falsificado asistencia en UPAM?", category: "problema" },
+  { id: 4, text: "¿Los maestros realmente quieren cambiar el sistema?", category: "problema" },
   
+  { id: 5, text: "¿Los maestros son usuarios principales del sistema?", category: "usuarios" },
+  { id: 6, text: "¿Administración necesita reportes automáticos?", category: "usuarios" },
+  { id: 7, text: "¿Los padres quieren notificaciones de asistencia?", category: "usuarios" },
+  { id: 8, text: "¿Hay más de 30 maestros en UPAM?", category: "usuarios" },
+  { id: 9, text: "¿Hay más de 500 alumnos en UPAM?", category: "usuarios" },
+  
+  { id: 10, text: "¿Existen softwares de asistencia en el mercado?", category: "competencia" },
+  { id: 11, text: "¿SmartCane tiene ventaja de reconocimiento facial?", category: "competencia" },
+  { id: 12, text: "¿El precio de SmartCane sería competitivo?", category: "competencia" },
+  
+  { id: 13, text: "¿Es posible usar reconocimiento facial con fotos grupales?", category: "tecnica" },
+  { id: 14, text: "¿El maestro puede corregir errores manualmente?", category: "tecnica" },
+  { id: 15, text: "¿Se requiere mucho servidor/infraestructura?", category: "tecnica" },
+  { id: 16, text: "¿Procesar una foto tomaría menos de 5 segundos?", category: "tecnica" },
+  { id: 17, text: "¿Se necesitan fotos, horarios y datos de alumnos?", category: "tecnica" },
+  
+  { id: 18, text: "¿SmartCane reduce tiempo de pasada de lista para maestros?", category: "beneficios" },
+  { id: 19, text: "¿Administración ganaría con reportes automáticos?", category: "beneficios" },
+  { id: 20, text: "¿Los alumnos se benefician con alertas de riesgo?", category: "beneficios" },
+  { id: 21, text: "¿Los padres se benefician con notificaciones?", category: "beneficios" },
+  { id: 22, text: "¿SmartCane reduce falsificación de asistencia?", category: "beneficios" },
+  { id: 23, text: "¿El ahorro de tiempo justifica la inversión?", category: "beneficios" },
+  
+  { id: 24, text: "¿Se podría implementar en 3-4 meses?", category: "implementacion" },
+  { id: 25, text: "¿El costo de desarrollo es razonable?", category: "implementacion" },
+  { id: 26, text: "¿Se necesita capacitación de maestros?", category: "implementacion" },
+  { id: 27, text: "¿Hay alguien para mantener el sistema después?", category: "implementacion" },
+  { id: 28, text: "¿Hay plan B si el sistema falla?", category: "implementacion" },
+  
+  { id: 29, text: "¿Los maestros usarían una app en lugar de lista manual?", category: "adopcion" },
+  { id: 30, text: "¿Hay maestros dispuestos a probar primero?", category: "adopcion" },
+  { id: 31, text: "¿Se requiere permiso oficial de UPAM?", category: "adopcion" },
+  { id: 32, text: "¿Hay resistencia al cambio en la institución?", category: "adopcion" },
+  
+  { id: 33, text: "¿El costo por alumno sería menor a $50 anuales?", category: "costos" },
+  { id: 34, text: "¿UPAM pagaría por el sistema?", category: "costos" },
+  { id: 35, text: "¿Habría ROI positivo en 2 años?", category: "costos" },
+  { id: 36, text: "¿Se podría vender a otras universidades?", category: "costos" },
+  
+  { id: 37, text: "¿Se tienen fotos de TODOS los alumnos?", category: "datos" },
+  { id: 38, text: "¿Los horarios están actualizados y correctos?", category: "datos" },
+  { id: 39, text: "¿La información de alumnos está centralizada?", category: "datos" },
+  { id: 40, text: "¿Hay problemas legales con guardar fotos?", category: "datos" },
+  
+  { id: 41, text: "¿Hay plan si la IA no reconoce a alguien?", category: "riesgos" },
+  { id: 42, text: "¿Se puede manejar alumnos sin foto?", category: "riesgos" },
+  { id: 43, text: "¿Se puede manejar fotos mal tomadas?", category: "riesgos" },
+  { id: 44, text: "¿Hay backup de datos?", category: "riesgos" },
+  { id: 45, text: "¿Es legal guardar datos biométricos?", category: "riesgos" },
+  
+  { id: 46, text: "¿SmartCane identificaría alumnos en riesgo?", category: "impacto" },
+  { id: 47, text: "¿Mejoraría la calidad educativa?", category: "impacto" },
+  { id: 48, text: "¿Reduciría corrupción en asistencia?", category: "impacto" },
+  { id: 49, text: "¿Es escalable a toda UPAM?", category: "impacto" },
+  { id: 50, text: "¿Se podría usar en otras instituciones similares?", category: "impacto" },
+];
+
+const responses = {};
+
+function initQuestions() {
+  const container = document.getElementById('questionsContainer');
+  
+  questions.forEach(q => {
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    
+    const titleDiv = document.createElement('div');
+    titleDiv.className = 'question-title';
+    titleDiv.innerHTML = `<span class="question-num">${q.id}</span>${q.text}`;
+    
+    const buttonGroup = document.createElement('div');
+    buttonGroup.className = 'button-group';
+    
+    ['Sí', 'No'].forEach(option => {
+      const btn = document.createElement('button');
+      btn.textContent = option;
+      btn.onclick = () => answer(q.id, option, btn);
+      buttonGroup.appendChild(btn);
+    });
+    
+    card.appendChild(titleDiv);
+    card.appendChild(buttonGroup);
+    container.appendChild(card);
+  });
 }
+
+function answer(qId, option, btn) {
+  responses[qId] = option;
+  
+  const siblings = btn.parentElement.querySelectorAll('button');
+  siblings.forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  
+  updateStats();
+}
+
+function updateStats() {
+  const total = Object.keys(responses).length;
+  const positive = Object.values(responses).filter(v => v === 'Sí').length;
+  const negative = total - positive;
+  const viability = total > 0 ? Math.round((positive / total) * 100) : 0;
+  
+  document.getElementById('answered').textContent = total;
+  document.getElementById('positive').textContent = positive;
+  document.getElementById('negative').textContent = negative;
+  document.getElementById('viability').textContent = viability + '%';
+  document.getElementById('progressFill').style.width = (total / 50) * 100 + '%';
+  document.getElementById('progressText').textContent = `${total}/50`;
+  
+  updateSummary(total, positive, viability);
+}
+
+function updateSummary(total, positive, viability) {
+  const text = document.getElementById('summaryText');
+  
+  if (total === 0) {
+    text.textContent = 'Responde las preguntas para ver el análisis.';
+    return;
+  }
+  
+  let msg = '';
+  if (viability >= 80) {
+    msg = `Excelente: ${positive}/${total} respuestas positivas. Viabilidad muy alta. El proyecto es viable y recomendado.`;
+  } else if (viability >= 60) {
+    msg = `Bueno: ${positive}/${total} respuestas positivas. Viabilidad media-alta. Requiere atención en puntos críticos.`;
+  } else if (viability >= 40) {
+    msg = `Moderado: ${positive}/${total} respuestas positivas. Hay obstáculos significativos que deben resolverse.`;
+  } else {
+    msg = `Crítico: ${positive}/${total} respuestas positivas. Muchas barreras. Replanteamiento recomendado.`;
+  }
+  
+  text.textContent = msg;
+}
+
+initQuestions();
 </script>
 </body>
 </html>
-
-
-
-// HOLA JSJSJS
