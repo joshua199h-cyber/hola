@@ -142,6 +142,13 @@ body {
 }
 
 @media (max-width: 768px) {
+    .header-container {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.75rem;
+        align-items: center;
+    }
+
     .nav {
         display: none;
         position: absolute;
@@ -149,14 +156,20 @@ body {
         left: 0;
         right: 0;
         flex-direction: column;
-        gap: 0;
+        gap: 0.5rem;
         background: var(--color-bg);
         border-bottom: 1px solid var(--color-border);
         padding: var(--spacing-md);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
     }
 
     .nav.active {
         display: flex;
+    }
+
+    .nav a {
+        padding: 0.75rem 0;
+        font-size: 0.95rem;
     }
 
     .menu-toggle {
@@ -169,6 +182,8 @@ body {
     }
 
     .header-icons {
+        width: 100%;
+        justify-content: space-between;
         gap: var(--spacing-sm);
     }
 
@@ -444,6 +459,22 @@ body {
     z-index: 10;
     opacity: 0;
     transition: var(--transition);
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 210px;
+}
+
+.product-info h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.view3d-btn {
+    width: 100%;
 }
 
 .product-card:hover .product-badge {
@@ -934,6 +965,23 @@ body {
     .nav { padding: 1rem; }
     .help-cta-inner { padding: 0.5rem; }
     .catalog-download .btn-primary { width: 90%; padding: 0.9rem; }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .cart-item-price {
+        width: 100%;
+        text-align: left;
+    }
 
     /* Mejora interacciones táctiles en listas y formularios */
     input[type="number"], input, select, button { touch-action: manipulation; }
