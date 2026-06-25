@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URBAN MODE - Tienda de Moda Premium</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+    <div class="header-container">
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <div class="logo">URBAN MODE</div>
+        <nav class="nav">
+            <a href="#seccion-hombre">Hombre</a>
+            <a href="#seccion-mujer">Mujer</a>
+            <a href="#seccion-ofertas">Ofertas</a>
+            <a href="#" id="catalogNavLink">Catálogo</a>
+        </nav>
+        <div class="header-icons">
+            <button class="icon-btn" onclick="toggleSearch()" title="Buscar">BUSCAR</button>
+            <button class="icon-btn" onclick="toggleFavorites()" title="Favoritos">FAVORITOS</button>
+            <button class="icon-btn" onclick="toggleCart()" style="position: relative;" title="Carrito">
+                CARRITO
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+
+        </div>
+    </div>
+</header>
+
+<div class="header-spacer"></div>
+
+<!-- ===== HERO SECTION ===== -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>ESTAMOS PARA TI</h1>
+        <p>unete a esta familia de moda</p>
+        <div style="display:flex; gap:1rem; justify-content:center; align-items:center; margin-top:1rem;">
+            <button class="btn-primary" onclick="scrollToProducts()">Comprar Ahora</button>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CATALOG DOWNLOAD BUTTON (outside hero) ===== -->
+<div class="catalog-download" style="text-align:center; margin:2rem 0 1.5rem 0;">
+    <a id="catalogDownload" class="btn-primary" href="#" target="_blank" rel="noopener">Descargar Catálogo PDF</a>
+</div>
+
+<!-- ===== SECCIÓN HOMBRE ===== -->
+<section class="catalog" id="seccion-hombre">
+    <h2 class="section-title">Colección Hombre</h2>
+    <div class="products-grid" id="productsGridHombre"></div>
+</section>
+
+<!-- ===== SECCIÓN MUJER ===== -->
+<section class="catalog" id="seccion-mujer">
+    <h2 class="section-title">Colección Mujer</h2>
+    <div class="products-grid" id="productsGridMujer"></div>
+</section>
+
+<!-- ===== SECCIÓN OFERTAS ===== -->
+<section class="catalog" id="seccion-ofertas">
+    <h2 class="section-title">Ofertas Especiales</h2>
+    <div class="products-grid" id="productsGridOfertas"></div>
+</section>
+
+<!-- ===== SECCIÓN DESTACADA ===== -->
+<section class="featured reveal">
+    <div class="featured-container">
+        <div class="featured-image">
+            <img src="https://www.022estudio.com/wp-content/uploads/2023/03/tiendas-de-ropa-y-retail-como-favorece-el-diseno-a-la-decision-de-compra-022-studio-2048x1152.jpg" alt="Featured">
+        </div>
+        <div class="featured-content">
+            <h2>Sostenibilidad Moderna</h2>
+            <p>Nuestra nueva línea combina moda contemporánea con conciencia ambiental. Cada pieza está diseñada para durar, creada con materiales sustentables y procesos éticos. Porque la verdadera elegancia no compromete el planeta.</p>
+            <button class="btn-primary">Descubre Más</button>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter removed per request -->
+
+<!-- ===== HELP CTA (WhatsApp) ===== -->
+<section class="help-cta">
+    <div class="container help-cta-inner">
+        <div class="help-cta-text">
+            <h3>¿Necesitas ayuda?</h3>
+            <p>Contáctanos por WhatsApp y te asistimos con tu compra.</p>
+        </div>
+        <div>
+            <a class="btn-cta" href="https://wa.me/525536108066?text=Hola,%20necesito%20ayuda%20con%20mi%20pedido" target="_blank" rel="noopener">¿Necesitas ayuda? Contáctanos por WhatsApp</a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h4>Ayuda</h4>
+                <ul>
+                    <li><a href="#">Centro de Ayuda</a></li>
+                    <li><a href="#">Envíos y Devoluciones</a></li>
+                    <li><a href="#">Politica de Privacidad</a></li>
+                    <li><a href="#">Términos de Uso</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Empresa</h4>
+                <ul>
+                    <li><a href="#">Sobre Nosotros</a></li>
+                    <li><a href="#">Empleos</a></li>
+                    <li><a href="#">Sostenibilidad</a></li>
+                    <li><a href="#">Prensa</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="#">Email: info@urbanmode.com</a></li>
+                    <li><a href="#">Tel: +1 (555) 123-4567</a></li>
+                    <li><a href="#">Horario: Lun-Vie 9-17h</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Síguenos</h4>
+                <div class="footer-socials">
+                    <a href="#">f</a>
+                    <a href="#">𝕏</a>
+                    <a href="#">in</a>
+                    <a href="#">@</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 URBAN MODE. Todos los derechos reservados.</p>
+            <div style="display: flex; gap: 2rem;">
+                <a href="#" style="color: #ccc;">Aviso Legal</a>
+                <a href="#" style="color: #ccc;">Cookies</a>
+                <a href="#" style="color: #ccc;">Accesibilidad</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- ===== MODAL CARRITO ===== -->
+<div class="modal" id="cartModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="toggleCart()">×</button>
+        <h2>Tu Carrito</h2>
+        <div id="cartItems"></div>
+        <div id="cartEmpty" style="text-align:center; color:#777; padding:2rem;">
+            El carrito está vacío
+        </div>
+        <div id="cartTotal" style="display:none; margin-top:2rem; padding-top:1rem; border-top:1px solid #e8e8e8;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:1rem;">
+                <span>Total:</span>
+                <strong id="totalPrice">$0.00</strong>
+            </div>
+            <button class="btn-primary" style="width:100%;" onclick="goToCheckout()">Ir al Checkout</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MODAL FAVORITOS ===== -->
+<div class="modal" id="favoritesModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="toggleFavorites()">×</button>
+        <h2>Tus Favoritos</h2>
+        <div id="favoritesItems"></div>
+        <div id="favoritesEmpty" style="text-align:center; color:#777; padding:2rem;">
+            No tienes favoritos todavía
+        </div>
+    </div>
+</div>
+
+<script src="js/app.js"></script>
+
+<!-- Plantilla reusable para mostrar un producto 3D con fallback a imagen 2D -->
+<template id="modelViewerTemplate">
+    <div class="model-3d-container">
+        <model-viewer src="models/REPLACE_ME.glb"
+                      poster="images/REPLACE_ME.jpg"
+                      alt="Nombre del producto 3D"
+                      ar
+                      camera-controls
+                      auto-rotate
+                      interaction-prompt="auto"
+                      exposure="1"
+                      shadow-intensity="1"
+                      style="width:100%; height:100%;"
+                      loading="eager">
+            <!-- Fallback: se muestra si el navegador no soporta WebGL/model-viewer -->
+            <img slot="fallback" src="images/REPLACE_ME.jpg" alt="Nombre del producto (imagen alternativa)">
+        </model-viewer>
+    </div>
+</template>
+
+<!-- Modal para mostrar model-viewer en pantalla grande -->
+<div class="modal" id="modelModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="close3DViewer()">×</button>
+        <div id="modelViewerRoot"></div>
+    </div>
+</div>
+
+</body>
+</html>

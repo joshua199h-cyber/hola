@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gracias por tu compra - URBAN MODE</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/success.css">
+</head>
+<body class="success-page">
+
+<!-- ===== HEADER SUCCESS ===== -->
+<header class="checkout-header">
+    <div class="checkout-header-inner">
+        <a class="checkout-logo" href="index.html">URBAN MODE</a>
+    </div>
+</header>
+
+<!-- ===== MAIN SUCCESS ===== -->
+<main class="success-shell">
+    <section class="success-panel">
+        <div class="success-icon">✓</div>
+        <p style="letter-spacing:0.16em; text-transform:uppercase; color:#777; margin-bottom:1rem;">COMPRA COMPLETADA</p>
+        <h1>¡Gracias por tu compra!</h1>
+        <p style="color:#777; margin:1rem 0;">Tu pedido fue recibido correctamente. En breve recibirás la confirmación en tu correo electrónico.</p>
+        
+        <div class="order-info">
+            <div class="order-number" id="successOrderNumber">Pedido #<span id="orderNum">00000000</span></div>
+            <p id="successEmail" style="color:#777; font-size:0.9rem; margin-top:1rem;">Confirmación enviada a: <strong id="emailDisplay">tu@email.com</strong></p>
+        </div>
+
+        <div class="order-details">
+            <h3>Detalles del pedido</h3>
+            <div id="successItems"></div>
+            <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid #e8e8e8; text-align:right;">
+                <p style="color:#777; margin-bottom:0.5rem;">Total pagado:</p>
+                <p style="font-size:1.4rem; font-weight:500;" id="successTotal">$0.00</p>
+            </div>
+        </div>
+
+        <div style="margin-top:2rem; display:flex; gap:1rem; flex-direction:column;">
+            <a href="index.html" class="btn-primary" style="text-align:center;">Volver a la tienda</a>
+            <button onclick="downloadInvoice()" style="padding:1rem 3rem; background:none; border:1px solid #111; color:#111; text-decoration:none; font-size:0.9rem; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:all 0.3s ease;">Descargar Recibo</button>
+        </div>
+    </section>
+</main>
+
+<script src="js/success.js"></script>
+
+</body>
+</html>

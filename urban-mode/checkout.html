@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - URBAN MODE</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/checkout.css">
+</head>
+<body class="checkout-page">
+
+<!-- ===== HEADER CHECKOUT ===== -->
+<header class="checkout-header">
+    <div class="checkout-header-inner">
+        <a class="checkout-logo" href="index.html">URBAN MODE</a>
+        <a href="index.html" style="color:#777; text-decoration:none;">← Seguir comprando</a>
+    </div>
+</header>
+
+<!-- ===== MAIN CHECKOUT ===== -->
+<main class="checkout-shell">
+    <section class="checkout-panel">
+        <h1>Finalizar Compra</h1>
+        <form id="checkoutForm" onsubmit="processCheckout(event)">
+            
+            <h2>Datos de envío</h2>
+            <div class="checkout-grid">
+                <div class="checkout-field full">
+                    <label for="fullName">Nombre completo</label>
+                    <input id="fullName" name="fullName" type="text" required>
+                </div>
+                <div class="checkout-field">
+                    <label for="email">Correo electrónico</label>
+                    <input id="email" name="email" type="email" required>
+                </div>
+                <div class="checkout-field">
+                    <label for="phone">Teléfono</label>
+                    <input id="phone" name="phone" type="tel" required>
+                </div>
+                <div class="checkout-field full">
+                    <label for="address">Dirección</label>
+                    <input id="address" name="address" type="text" required>
+                </div>
+                <div class="checkout-field">
+                    <label for="city">Ciudad</label>
+                    <input id="city" name="city" type="text" required>
+                </div>
+                <div class="checkout-field">
+                    <label for="state">Estado</label>
+                    <input id="state" name="state" type="text" required>
+                </div>
+                <div class="checkout-field">
+                    <label for="zip">Código Postal</label>
+                    <input id="zip" name="zip" type="text" required>
+                </div>
+            </div>
+
+            <h2>Método de pago</h2>
+            <input id="paymentMethod" name="paymentMethod" type="hidden" value="credit">
+            <div class="payment-methods">
+                <button class="payment-method active" type="button" data-payment="credit" onclick="selectPayment(this)">Tarjeta de crédito</button>
+                <button class="payment-method" type="button" data-payment="debit" onclick="selectPayment(this)">Tarjeta de débito</button>
+                <button class="payment-method" type="button" data-payment="paypal" onclick="selectPayment(this)">PayPal</button>
+                <button class="payment-method" type="button" data-payment="transfer" onclick="selectPayment(this)">Transferencia</button>
+            </div>
+
+            <!-- Datos para transferencia: se muestra sólo si el usuario selecciona Transferencia -->
+            <div id="transferInfo" style="display:none; margin-top:1rem; padding:1rem; border:1px solid #e8e8e8; border-radius:8px; background:#fafafa;">
+                <div style="margin-top:0.6rem; color:#333;">
+                    <p><strong>Banco:</strong> <span id="transferBank">Mercado Pago W</span></p>
+                    <p><strong>CLABE:</strong> <span id="transferClabe">--</span></p>
+                    <p><strong>Titular:</strong> <span id="transferHolder">--</span></p>
+                </div>
+                <p id="transferSummary" style="margin-top:0.6rem; color:#333;"></p>
+            </div>
+
+            <h2>Datos de tarjeta</h2>
+            <div class="checkout-grid">
+                <div class="checkout-field full">
+                    <label for="cardNumber">Número de tarjeta</label>
+                    <input id="cardNumber" name="cardNumber" type="text" inputmode="numeric" placeholder="0000 0000 0000 0000" maxlength="19">
+                </div>
+                <div class="checkout-field full">
+                    <label for="cardName">Nombre del titular</label>
+                    <input id="cardName" name="cardName" type="text">
+                </div>
+                <div class="checkout-field">
+                    <label for="expiry">Fecha de vencimiento</label>
+                    <input id="expiry" name="expiry" type="text" placeholder="MM/AA" maxlength="5">
+                </div>
+                <div class="checkout-field">
+                    <label for="cvv">CVV</label>
+                    <input id="cvv" name="cvv" type="text" inputmode="numeric" maxlength="4">
+                </div>
+            </div>
+
+            <button class="btn-primary checkout-submit" type="submit">Comprar Ahora</button>
+        </form>
+    </section>
+
+    <!-- ===== RESUMEN DE COMPRA ===== -->
+    <aside class="checkout-panel">
+        <h2>Resumen de compra</h2>
+        <div id="checkoutItems"></div>
+        <div class="summary-row">
+            <span>Subtotal</span>
+            <strong id="checkoutSubtotal">$0.00</strong>
+        </div>
+        <div class="summary-row" id="ivaRow" style="display:none;">
+            <span>IVA (16%)</span>
+            <strong id="checkoutIva">$0.00</strong>
+        </div>
+        <div class="summary-row total">
+            <span>Total final</span>
+            <strong id="checkoutTotal">$0.00</strong>
+        </div>
+    </aside>
+</main>
+
+<script src="js/checkout.js"></script>
+
+</body>
+</html>
