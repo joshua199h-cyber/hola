@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>  SIDCA Encuesta</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #1a1a2e;
+  --secondary: #16213e;
+  --accent: #e94560;
+  --accent-light: #f39c12;
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --border: #2d3561;
+  --success: #2ecc71;
+}
+
+body {
+  background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  padding: 1rem;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 1.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  background: linear-gradient(135deg, #e94560, #f39c12);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.3rem;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.progress-section {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.progress-bar {
+  background: var(--border);
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: space-between;
+}
+
+.questions-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.question-card {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  transition: all 0.2s ease;
+}
+
+.question-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 15px rgba(233, 69, 96, 0.15);
+}
+
+.question-num {
+  display: inline-block;
+  background: var(--accent);
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 28px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.question-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  color: var(--text-primary);
+}
+
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+button {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-primary);
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  border-color: var(--accent);
+  background: rgba(233, 69, 96, 0.1);
+}
+
+button.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.summary {
+  background: var(--secondary);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.summary-title {
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+.summary-text {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>SmartCane Validation</h1>
+    <p class="subtitle">50 Preguntas Cerradas - Análisis de Viabilidad</p>
+  </header>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-number" id="answered">0</div>
+      <div class="stat-label">Respondidas</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="viability">0%</div>
+      <div class="stat-label">Viabilidad</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="positive">0</div>
+      <div class="stat-label">Positivas</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="negative">0</div>
+      <div class="stat-label">Negativas</div>
+    </div>
+  </div>
+
+  <div class="progress-section">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+    </div>
+    <div class="progress-text">
+      <span>Progreso</span>
+      <span id="progressText">0/50</span>
+    </div>
+  </div>
+
+  <div class="questions-container" id="questionsContainer"></div>
+
+  <div class="summary">
+    <div class="summary-title">Análisis</div>
+    <div class="summary-text" id="summaryText">Responde las preguntas para ver el análisis de viabilidad.</div>
+  </div>
+</div>
+
+<script>
+const questions = [
+  { id: 1, text: "¿Existe un problema real con el sistema actual de asistencia?", category: "problema" },
+  { id: 2, text: "¿Los maestros invierten demasiado tiempo en pasar lista?", category: "problema" },
+  { id: 3, text: "¿Se ha falsificado asistencia en UPAM?", category: "problema" },
+  { id: 4, text: "¿Los maestros realmente quieren cambiar el sistema?", category: "problema" },
+  
+  { id: 5, text: "¿Los maestros son usuarios principales del sistema?", category: "usuarios" },
+  { id: 6, text: "¿Administración necesita reportes automáticos?", category: "usuarios" },
+  { id: 7, text: "¿Los padres quieren notificaciones de asistencia?", category: "usuarios" },
+  { id: 8, text: "¿Hay más de 30 maestros en UPAM?", category: "usuarios" },
+  { id: 9, text: "¿Hay más de 500 alumnos en UPAM?", category: "usuarios" },
+  
+  { id: 10, text: "¿Existen softwares de asistencia en el mercado?", category: "competencia" },
+  { id: 11, text: "¿SmartCane tiene ventaja de reconocimiento facial?", category: "competencia" },
+  { id: 12, text: "¿El precio de SmartCane sería competitivo?", category: "competencia" },
+  
+  { id: 13, text: "¿Es posible usar reconocimiento facial con fotos grupales?", category: "tecnica" },
+  { id: 14, text: "¿El maestro puede corregir errores manualmente?", category: "tecnica" },
+  { id: 15, text: "¿Se requiere mucho servidor/infraestructura?", category: "tecnica" },
+  { id: 16, text: "¿Procesar una foto tomaría menos de 5 segundos?", category: "tecnica" },
+  { id: 17, text: "¿Se necesitan fotos, horarios y datos de alumnos?", category: "tecnica" },
+  
+  { id: 18, text: "¿SmartCane reduce tiempo de pasada de lista para maestros?", category: "beneficios" },
+  { id: 19, text: "¿Administración ganaría con reportes automáticos?", category: "beneficios" },
+  { id: 20, text: "¿Los alumnos se benefician con alertas de riesgo?", category: "beneficios" },
+  { id: 21, text: "¿Los padres se benefician con notificaciones?", category: "beneficios" },
+  { id: 22, text: "¿SmartCane reduce falsificación de asistencia?", category: "beneficios" },
+  { id: 23, text: "¿El ahorro de tiempo justifica la inversión?", category: "beneficios" },
+  
+  { id: 24, text: "¿Se podría implementar en 3-4 meses?", category: "implementacion" },
+  { id: 25, text: "¿El costo de desarrollo es razonable?", category: "implementacion" },
+  { id: 26, text: "¿Se necesita capacitación de maestros?", category: "implementacion" },
+  { id: 27, text: "¿Hay alguien para mantener el sistema después?", category: "implementacion" },
+  { id: 28, text: "¿Hay plan B si el sistema falla?", category: "implementacion" },
+  
+  { id: 29, text: "¿Los maestros usarían una app en lugar de lista manual?", category: "adopcion" },
+  { id: 30, text: "¿Hay maestros dispuestos a probar primero?", category: "adopcion" },
+  { id: 31, text: "¿Se requiere permiso oficial de UPAM?", category: "adopcion" },
+  { id: 32, text: "¿Hay resistencia al cambio en la institución?", category: "adopcion" },
+  
+  { id: 33, text: "¿El costo por alumno sería menor a $50 anuales?", category: "costos" },
+  { id: 34, text: "¿UPAM pagaría por el sistema?", category: "costos" },
+  { id: 35, text: "¿Habría ROI positivo en 2 años?", category: "costos" },
+  { id: 36, text: "¿Se podría vender a otras universidades?", category: "costos" },
+  
+  { id: 37, text: "¿Se tienen fotos de TODOS los alumnos?", category: "datos" },
+  { id: 38, text: "¿Los horarios están actualizados y correctos?", category: "datos" },
+  { id: 39, text: "¿La información de alumnos está centralizada?", category: "datos" },
+  { id: 40, text: "¿Hay problemas legales con guardar fotos?", category: "datos" },
+  
+  { id: 41, text: "¿Hay plan si la IA no reconoce a alguien?", category: "riesgos" },
+  { id: 42, text: "¿Se puede manejar alumnos sin foto?", category: "riesgos" },
+  { id: 43, text: "¿Se puede manejar fotos mal tomadas?", category: "riesgos" },
+  { id: 44, text: "¿Hay backup de datos?", category: "riesgos" },
+  { id: 45, text: "¿Es legal guardar datos biométricos?", category: "riesgos" },
+  
+  { id: 46, text: "¿SmartCane identificaría alumnos en riesgo?", category: "impacto" },
+  { id: 47, text: "¿Mejoraría la calidad educativa?", category: "impacto" },
+  { id: 48, text: "¿Reduciría corrupción en asistencia?", category: "impacto" },
+  { id: 49, text: "¿Es escalable a toda UPAM?", category: "impacto" },
+  { id: 50, text: "¿Se podría usar en otras instituciones similares?", category: "impacto" },
+];
+
+const responses = {};
+
+function initQuestions() {
+  const container = document.getElementById('questionsContainer');
+  
+  questions.forEach(q => {
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    
+    const titleDiv = document.createElement('div');
+    titleDiv.className = 'question-title';
+    titleDiv.innerHTML = `<span class="question-num">${q.id}</span>${q.text}`;
+    
+    const buttonGroup = document.createElement('div');
+    buttonGroup.className = 'button-group';
+    
+    ['Sí', 'No'].forEach(option => {
+      const btn = document.createElement('button');
+      btn.textContent = option;
+      btn.onclick = () => answer(q.id, option, btn);
+      buttonGroup.appendChild(btn);
+    });
+    
+    card.appendChild(titleDiv);
+    card.appendChild(buttonGroup);
+    container.appendChild(card);
+  });
+}
+
+function answer(qId, option, btn) {
+  responses[qId] = option;
+  
+  const siblings = btn.parentElement.querySelectorAll('button');
+  siblings.forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  
+  updateStats();
+}
+
+function updateStats() {
+  const total = Object.keys(responses).length;
+  const positive = Object.values(responses).filter(v => v === 'Sí').length;
+  const negative = total - positive;
+  const viability = total > 0 ? Math.round((positive / total) * 100) : 0;
+  
+  document.getElementById('answered').textContent = total;
+  document.getElementById('positive').textContent = positive;
+  document.getElementById('negative').textContent = negative;
+  document.getElementById('viability').textContent = viability + '%';
+  document.getElementById('progressFill').style.width = (total / 50) * 100 + '%';
+  document.getElementById('progressText').textContent = `${total}/50`;
+  
+  updateSummary(total, positive, viability);
+}
+
+function updateSummary(total, positive, viability) {
+  const text = document.getElementById('summaryText');
+  
+  if (total === 0) {
+    text.textContent = 'Responde las preguntas para ver el análisis.';
+    return;
+  }
+  
+  let msg = '';
+  if (viability >= 80) {
+    msg = `Excelente: ${positive}/${total} respuestas positivas. Viabilidad muy alta. El proyecto es viable y recomendado.`;
+  } else if (viability >= 60) {
+    msg = `Bueno: ${positive}/${total} respuestas positivas. Viabilidad media-alta. Requiere atención en puntos críticos.`;
+  } else if (viability >= 40) {
+    msg = `Moderado: ${positive}/${total} respuestas positivas. Hay obstáculos significativos que deben resolverse.`;
+  } else {
+    msg = `Crítico: ${positive}/${total} respuestas positivas. Muchas barreras. Replanteamiento recomendado.`;
+  }
+  
+  text.textContent = msg;
+}
+
+initQuestions();
+</script>
+</body>
+</html>
